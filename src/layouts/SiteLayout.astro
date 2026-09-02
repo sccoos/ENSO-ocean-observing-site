@@ -1,0 +1,27 @@
+---
+import "../styles/global.css";
+import SiteFooter from "../components/layout/SiteFooter.astro";
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content="California Ocean Observing System: Tracking El Niño" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+    <SiteFooter />
+    <script>
+      import "../scripts/preline";
+    </script>
+  </body>
+</html>

@@ -1,0 +1,26 @@
+{
+  "name": "enso-ocean-observing-site",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "engines": {
+    "node": ">=22.22.2"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "devDependencies": {
+    "@astrojs/check": "latest",
+    "@tailwindcss/vite": "latest",
+    "astro": "latest",
+    "preline": "latest",
+    "tailwindcss": "latest",
+    "typescript": "latest"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^8.0.0"
+  }
+}

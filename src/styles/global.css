@@ -1,0 +1,214 @@
+@import "tailwindcss";
+@import "preline/variants.css";
+@import "preline/theme.css";
+
+@source "../../node_modules/preline/dist/*.js";
+
+@layer base {
+  body {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    min-height: 100vh;
+    min-width: 20rem;
+    background: var(--background-1);
+    color: var(--foreground);
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+.site-page {
+  box-sizing: border-box;
+  flex: 1;
+  width: min(100% - 3rem, 80rem);
+  margin: 0 auto;
+  padding-block: 4rem;
+}
+
+.site-intro {
+  max-width: 44rem;
+}
+
+.tab-demo {
+  margin-top: 3rem;
+  padding: 2rem;
+  background: var(--layer);
+  border: 1px solid var(--layer-line);
+  border-radius: 1rem;
+  box-shadow: 0 0.25rem 1rem color-mix(in srgb, var(--foreground) 8%, transparent);
+}
+
+.tab-demo__navigation {
+  display: none;
+  margin-top: 1.5rem;
+  border-bottom: 1px solid var(--border-line-2);
+}
+
+.tab-demo__select {
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: 1.5rem;
+  padding: 0.75rem 2.75rem 0.75rem 0.875rem;
+  color: var(--foreground);
+  background: var(--background);
+  border: 1px solid var(--border-line-2);
+  border-radius: 0.5rem;
+  font: inherit;
+  font-size: 0.875rem;
+}
+
+.tab-demo__select:focus-visible {
+  outline: 0.1875rem solid color-mix(in srgb, var(--primary) 45%, transparent);
+  outline-offset: 0.1875rem;
+}
+
+.tab-demo__list {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+}
+
+.tab-demo__tab {
+  position: relative;
+  flex: none;
+  margin-bottom: -1px;
+  padding: 0.75rem 0.0625rem;
+  color: var(--muted-foreground);
+  background: transparent;
+  border: 0;
+  border-bottom: 0.125rem solid transparent;
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: border-color 150ms ease, color 150ms ease;
+}
+
+.tab-demo__tab:hover,
+.tab-demo__tab:focus-visible {
+  color: var(--foreground);
+}
+
+.tab-demo__tab:focus-visible {
+  outline: 0.1875rem solid color-mix(in srgb, var(--primary) 45%, transparent);
+  outline-offset: 0.1875rem;
+}
+
+.tab-demo__tab[aria-selected="true"] {
+  color: var(--primary-active);
+  border-bottom-color: var(--primary-active);
+}
+
+.tab-demo__panels {
+  padding-top: 1.5rem;
+}
+
+.tab-demo__panel {
+  color: var(--muted-foreground);
+  line-height: 1.75;
+}
+
+.tab-demo__panel :is(h2, h3, h4) {
+  margin: 0 0 0.75rem;
+  color: var(--foreground);
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.tab-demo__panel p,
+.tab-demo__panel ul,
+.tab-demo__panel ol {
+  margin: 0;
+}
+
+.tab-demo__panel a {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.tab-demo__panel a:hover {
+  color: var(--primary-hover);
+}
+
+.tab-demo__panel.hidden {
+  display: none;
+}
+
+.site-footer {
+  background: var(--footer);
+  border-top: 1px solid var(--footer-line);
+}
+
+.site-footer__inner {
+  box-sizing: border-box;
+  width: min(100% - 3rem, 84rem);
+  margin: 0 auto;
+  padding-block: 2rem;
+}
+
+.site-footer__partners {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: center;
+  gap: 0;
+}
+
+.site-footer__partner {
+  display: grid;
+  min-width: 0;
+  min-height: 4rem;
+  place-items: center;
+  border-radius: 0.5rem;
+}
+
+.site-footer__partner:focus-visible {
+  outline: 0.1875rem solid color-mix(in srgb, var(--primary) 45%, transparent);
+  outline-offset: 0.25rem;
+}
+
+.site-footer__partner img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: clamp(0.875rem, calc((100vw - 3rem) / 30), 6rem);
+  object-fit: contain;
+}
+
+@media (width <= 40rem) {
+  .site-page {
+    width: min(100% - 2rem, 80rem);
+    padding-block: 3rem;
+  }
+
+  .tab-demo {
+    padding: 1.5rem;
+  }
+
+  .site-footer__inner {
+    width: min(100% - 2rem, 64rem);
+  }
+
+  .site-footer__partners {
+    grid-template-columns: 1fr;
+  }
+
+  .site-footer__partner img {
+    height: clamp(2rem, 12vw, 4rem);
+  }
+}
+
+@media (width > 40rem) {
+  .tab-demo__select {
+    display: none;
+  }
+
+  .tab-demo__navigation {
+    display: block;
+  }
+}

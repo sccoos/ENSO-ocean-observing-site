@@ -1,0 +1,22 @@
+---
+import SiteLayout from "../layouts/SiteLayout.astro";
+import TopicTabs from "../components/TopicTabs.astro";
+---
+
+<SiteLayout title="California Ocean Observing System: Tracking El Niño">
+  <main class="site-page">
+    <header class="site-intro">
+      <p class="text-sm font-semibold uppercase tracking-[0.18em] text-primary">
+        California Ocean Observing System
+      </p>
+      <h1 class="mt-4 max-w-4xl text-4xl font-bold tracking-tight text-foreground sm:text-2xl lg:text-4xl">
+        Monitoring El Niño with the California Ocean Observing System
+      </h1>
+      <p class="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">
+        Introduction to developing El Niño event/CalOOS, this text persists above Tabs group below.
+      </p>
+    </header>
+
+    <TopicTabs />
+  </main>
+</SiteLayout>

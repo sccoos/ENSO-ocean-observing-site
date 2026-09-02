@@ -1,0 +1,70 @@
+---
+import CoastalConditions from "../tab-content/coastal-conditions.mdx";
+import EcosystemImpacts from "../tab-content/ecosystem-impacts.mdx";
+import Faq from "../tab-content/faq.mdx";
+import OffshoreConditions from "../tab-content/offshore-conditions.mdx";
+import Overview from "../tab-content/overview.mdx";
+import SubsurfaceConditions from "../tab-content/subsurface-conditions.mdx";
+import Upwelling from "../tab-content/upwelling.mdx";
+
+const tabs = [
+  { id: "overview", label: "Overview", Content: Overview },
+  { id: "coastal-conditions", label: "Coastal Conditions", Content: CoastalConditions },
+  { id: "offshore-conditions", label: "Offshore Conditions", Content: OffshoreConditions },
+  { id: "subsurface-conditions", label: "Subsurface Conditions", Content: SubsurfaceConditions },
+  { id: "upwelling", label: "Upwelling", Content: Upwelling },
+  { id: "ecosystem-impacts", label: "Ecosystem Impacts", Content: EcosystemImpacts },
+  { id: "faq", label: "FAQ", Content: Faq }
+];
+---
+
+<section class="tab-demo" aria-label="Ocean observing topics">
+  <select id="observing-topic-select" class="tab-demo__select" aria-label="Ocean observing topics">
+    {
+      tabs.map((tab) => (
+        <option value={`#${tab.id}-panel`}>{tab.label}</option>
+      ))
+    }
+  </select>
+
+  <div class="tab-demo__navigation">
+    <nav
+      class="tab-demo__list"
+      aria-label="Ocean observing topics"
+      role="tablist"
+      aria-orientation="horizontal"
+      data-hs-tab-select="#observing-topic-select"
+    >
+      {
+        tabs.map((tab, index) => (
+          <button
+            type="button"
+            class:list={["tab-demo__tab", index === 0 && "active"]}
+            id={`${tab.id}-tab`}
+            aria-selected={index === 0 ? "true" : "false"}
+            data-hs-tab={`#${tab.id}-panel`}
+            aria-controls={`${tab.id}-panel`}
+            role="tab"
+          >
+            {tab.label}
+          </button>
+        ))
+      }
+    </nav>
+  </div>
+
+  <div class="tab-demo__panels">
+    {
+      tabs.map(({ id, Content }, index) => (
+        <div
+          id={`${id}-panel`}
+          class:list={["tab-demo__panel", index !== 0 && "hidden"]}
+          role="tabpanel"
+          aria-labelledby={`${id}-tab`}
+        >
+          <Content />
+        </div>
+      ))
+    }
+  </div>
+</section>

@@ -1,0 +1,25 @@
+---
+interface Props {
+  src: string;
+  title: string;
+  aspectRatio?: string;
+}
+
+const {
+  src,
+  title,
+  aspectRatio = "16 / 9"
+} = Astro.props;
+---
+
+<figure class="my-6 overflow-hidden rounded-xl border border-border bg-layer shadow-sm">
+  <iframe
+    class="block w-full border-0"
+    src={src}
+    title={title}
+    loading="lazy"
+    referrerpolicy="origin"
+    sandbox="allow-same-origin allow-scripts"
+    style={`aspect-ratio: ${aspectRatio}`}
+  ></iframe>
+</figure>
