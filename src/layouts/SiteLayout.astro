@@ -10,12 +10,21 @@ const { title } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="theme-ocean">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content="California Ocean Observing System: Tracking El Niño" />
     <title>{title}</title>
+    <script is:inline>
+      const colorScheme = window.matchMedia("(prefers-color-scheme: dark)");
+      const updateColorScheme = () => {
+        document.documentElement.classList.toggle("dark", colorScheme.matches);
+      };
+
+      updateColorScheme();
+      colorScheme.addEventListener("change", updateColorScheme);
+    </script>
   </head>
   <body>
     <slot />

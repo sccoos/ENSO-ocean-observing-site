@@ -1,0 +1,54 @@
+---
+import ShoreStations from "../tab-content/coastal-conditions-shore-stations.mdx";
+import SubsurfaceMoorings from "../tab-content/coastal-conditions-subsurface-moorings.mdx";
+
+const tabs = [
+  { id: "surface-shore-stations", label: "Surface - Shore Stations", Content: ShoreStations },
+  { id: "subsurface-moorings", label: "Subsurface - Moorings", Content: SubsurfaceMoorings }
+];
+---
+
+<section aria-label="Coastal condition observations">
+  <div class="border-b border-line-2">
+    <nav
+      class="flex gap-x-1 overflow-x-auto"
+      aria-label="Coastal condition observation types"
+      role="tablist"
+      aria-orientation="horizontal"
+    >
+      {
+        tabs.map((tab, index) => (
+          <button
+            type="button"
+            class:list={[
+              "hs-tab-active:bg-layer hs-tab-active:border-b-transparent hs-tab-active:text-primary-active -mb-px inline-flex items-center gap-x-2 rounded-t-lg border border-line-2 bg-muted px-4 py-3 text-center text-sm font-medium text-muted-foreground-1 hover:text-foreground focus:outline-hidden focus:text-foreground disabled:pointer-events-none disabled:opacity-50",
+              index === 0 && "active"
+            ]}
+            id={`coastal-conditions-${tab.id}-tab`}
+            aria-selected={index === 0 ? "true" : "false"}
+            data-hs-tab={`#coastal-conditions-${tab.id}-panel`}
+            aria-controls={`coastal-conditions-${tab.id}-panel`}
+            role="tab"
+          >
+            {tab.label}
+          </button>
+        ))
+      }
+    </nav>
+  </div>
+
+  <div class="mt-3">
+    {
+      tabs.map(({ id, Content }, index) => (
+        <div
+          id={`coastal-conditions-${id}-panel`}
+          class:list={[index !== 0 && "hidden"]}
+          role="tabpanel"
+          aria-labelledby={`coastal-conditions-${id}-tab`}
+        >
+          <Content />
+        </div>
+      ))
+    }
+  </div>
+</section>

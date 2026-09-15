@@ -1,59 +1,90 @@
 ---
-import CoastalConditions from "../tab-content/coastal-conditions.mdx";
+import CoastalConditionsTabs from "./CoastalConditionsTabs.astro";
+import CoastalErosion from "../tab-content/coastal-erosion.mdx";
 import EcosystemImpacts from "../tab-content/ecosystem-impacts.mdx";
 import Faq from "../tab-content/faq.mdx";
 import OffshoreConditions from "../tab-content/offshore-conditions.mdx";
 import Overview from "../tab-content/overview.mdx";
-import SubsurfaceConditions from "../tab-content/subsurface-conditions.mdx";
 import Upwelling from "../tab-content/upwelling.mdx";
 
 const tabs = [
   { id: "overview", label: "Overview", Content: Overview },
-  { id: "coastal-conditions", label: "Coastal Conditions", Content: CoastalConditions },
+  {
+    id: "coastal-conditions",
+    label: "Coastal Conditions",
+    Content: CoastalConditionsTabs
+  },
   { id: "offshore-conditions", label: "Offshore Conditions", Content: OffshoreConditions },
-  { id: "subsurface-conditions", label: "Subsurface Conditions", Content: SubsurfaceConditions },
   { id: "upwelling", label: "Upwelling", Content: Upwelling },
+  { id: "coastal-erosion", label: "Coastal Erosion", Content: CoastalErosion },
   { id: "ecosystem-impacts", label: "Ecosystem Impacts", Content: EcosystemImpacts },
-  { id: "faq", label: "FAQ", Content: Faq }
+  { id: "faq-resources", label: "FAQ & Resources", Content: Faq }
 ];
+
+const baseUrl = import.meta.env.BASE_URL;
 ---
 
 <section class="tab-demo" aria-label="Ocean observing topics">
-  <select id="observing-topic-select" class="tab-demo__select" aria-label="Ocean observing topics">
-    {
-      tabs.map((tab) => (
-        <option value={`#${tab.id}-panel`}>{tab.label}</option>
-      ))
-    }
-  </select>
-
-  <div class="tab-demo__navigation">
-    <nav
-      class="tab-demo__list"
-      aria-label="Ocean observing topics"
-      role="tablist"
-      aria-orientation="horizontal"
-      data-hs-tab-select="#observing-topic-select"
-    >
-      {
-        tabs.map((tab, index) => (
+  <header class="relative flex w-full flex-wrap border-b border-navbar-line bg-navbar xl:flex-nowrap xl:justify-start">
+    <nav class="site-navbar__inner xl:flex xl:items-center xl:justify-between" aria-label="Ocean observing topics">
+      <div class="flex items-center justify-between py-3">
+        <a class="flex-none text-sm font-semibold text-foreground focus:outline-hidden focus:opacity-80" href={baseUrl}>
+          The California Ocean Observing System: Tracking El Niño
+        </a>
+        <div class="xl:hidden">
           <button
             type="button"
-            class:list={["tab-demo__tab", index === 0 && "active"]}
-            id={`${tab.id}-tab`}
-            aria-selected={index === 0 ? "true" : "false"}
-            data-hs-tab={`#${tab.id}-panel`}
-            aria-controls={`${tab.id}-panel`}
-            role="tab"
+            class="hs-collapse-toggle relative flex size-9 items-center justify-center gap-x-2 rounded-lg border border-layer-line bg-layer text-layer-foreground shadow-2xs hover:bg-layer-hover focus:outline-hidden focus:bg-layer-focus disabled:pointer-events-none disabled:opacity-50"
+            id="observing-topic-navbar-toggle"
+            aria-expanded="false"
+            aria-controls="observing-topic-navbar"
+            aria-label="Toggle topic navigation"
+            data-hs-collapse="#observing-topic-navbar"
           >
-            {tab.label}
+            <svg class="hs-collapse-open:hidden size-4 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="3" x2="21" y1="6" y2="6" />
+              <line x1="3" x2="21" y1="12" y2="12" />
+              <line x1="3" x2="21" y1="18" y2="18" />
+            </svg>
+            <svg class="hs-collapse-open:block hidden size-4 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M18 6 6 18" />
+              <path d="m6 6 12 12" />
+            </svg>
           </button>
-        ))
-      }
-    </nav>
-  </div>
+        </div>
+      </div>
 
-  <div class="tab-demo__panels">
+      <div
+        id="observing-topic-navbar"
+        class="hs-collapse hidden grow basis-full overflow-hidden transition-all duration-300 xl:block xl:grow-0 xl:basis-auto"
+        aria-labelledby="observing-topic-navbar-toggle"
+        role="region"
+      >
+        <div class="flex flex-col gap-1 py-3 xl:flex-row xl:items-center xl:justify-end xl:gap-x-5 xl:py-0" role="tablist" aria-orientation="horizontal">
+          {
+            tabs.map((tab, index) => (
+              <button
+                type="button"
+                class:list={[
+                  "hs-tab-active:font-semibold hs-tab-active:text-primary-active hs-tab-active:after:bg-primary-active relative inline-flex items-center rounded-lg px-3 py-2 text-left text-sm text-navbar-nav-foreground hover:text-primary-hover focus:outline-hidden focus:text-primary-focus disabled:pointer-events-none disabled:opacity-50 xl:rounded-none xl:px-1 xl:py-4 xl:after:absolute xl:after:-bottom-px xl:after:inset-x-0 xl:after:h-0.5 xl:after:w-full xl:after:bg-transparent",
+                  index === 0 && "active"
+                ]}
+                id={`${tab.id}-tab`}
+                aria-selected={index === 0 ? "true" : "false"}
+                data-hs-tab={`#${tab.id}-panel`}
+                aria-controls={`${tab.id}-panel`}
+                role="tab"
+              >
+                {tab.label}
+              </button>
+            ))
+          }
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <div class="site-page tab-demo__panels">
     {
       tabs.map(({ id, Content }, index) => (
         <div

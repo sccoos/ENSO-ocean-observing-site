@@ -1,0 +1,75 @@
+---
+import EmbedFrame from "./EmbedFrame.astro";
+
+const regions = [
+  {
+    id: "north",
+    label: "North",
+    heading: "Northern California",
+    dashboardUrl: "https://sccoos.github.io/el-nino-dashboard/?site=Humboldt"
+  },
+  {
+    id: "central",
+    label: "Central",
+    heading: "Central California",
+    dashboardUrl: "https://sccoos.github.io/el-nino-dashboard/?site=Morro%20Bay"
+  },
+  {
+    id: "south",
+    label: "South",
+    heading: "Southern California",
+    dashboardUrl: "https://sccoos.github.io/el-nino-dashboard/?site=Stearns%20Wharf"
+  }
+];
+---
+
+<div class="my-6 flex flex-col gap-6 sm:flex-row">
+  <div class="shrink-0 border-b border-line-2 pb-3 sm:border-b-0 sm:border-e sm:pb-0 sm:pe-4">
+    <nav class="flex flex-col space-y-2" aria-label="Shore station regions" role="tablist" aria-orientation="vertical">
+      {
+        regions.map((region, index) => (
+          <button
+            type="button"
+            class:list={[
+              "hs-tab-active:text-primary-active hs-tab-active:after:bg-primary-active relative py-1 pe-4 text-start text-sm whitespace-nowrap text-muted-foreground-1 after:absolute after:-inset-e-px after:inset-y-0 after:h-full after:w-0.5 after:bg-transparent hover:text-primary-hover focus:outline-hidden focus:text-primary-focus disabled:pointer-events-none disabled:opacity-50",
+              index === 0 && "active"
+            ]}
+            id={`shore-stations-${region.id}-tab`}
+            aria-selected={index === 0 ? "true" : "false"}
+            data-hs-tab={`#shore-stations-${region.id}-panel`}
+            aria-controls={`shore-stations-${region.id}-panel`}
+            role="tab"
+          >
+            {region.label}
+          </button>
+        ))
+      }
+    </nav>
+  </div>
+
+  <div class="min-w-0 flex-1">
+    {
+      regions.map((region, index) => (
+        <div
+          id={`shore-stations-${region.id}-panel`}
+          class:list={[index !== 0 && "hidden"]}
+          role="tabpanel"
+          aria-labelledby={`shore-stations-${region.id}-tab`}
+        >
+          <div>
+            <div class="pt-6">
+              <h3 class="text-xl font-semibold text-foreground">{region.heading}</h3>
+              <p class="mt-4 text-muted-foreground">
+                Add regional observations, notable conditions, and context for this shoreline.
+              </p>
+            </div>
+            <EmbedFrame
+              src={region.dashboardUrl}
+              title={`${region.heading} El Niño dashboard`}
+            />
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</div>

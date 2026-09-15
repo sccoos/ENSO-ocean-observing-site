@@ -14,13 +14,11 @@
   },
   "devDependencies": {
     "@astrojs/check": "latest",
+    "@astrojs/mdx": "^8.0.0",
     "@tailwindcss/vite": "latest",
     "astro": "latest",
-    "preline": "latest",
+    "preline": "^4.2.0",
     "tailwindcss": "latest",
     "typescript": "latest"
-  },
-  "dependencies": {
-    "@astrojs/mdx": "^8.0.0"
   }
 }
