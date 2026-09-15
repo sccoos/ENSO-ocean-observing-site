@@ -1,0 +1,14 @@
+[
+  {
+    "question": "What is El Niño?",
+    "answer": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non lectus eget justo posuere ullamcorper."
+  },
+  {
+    "question": "Where does data come from?",
+    "answer": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer feugiat mauris vitae sem porta, in accumsan nunc mattis."
+  },
+  {
+    "question": "Other placeholder question?",
+    "answer": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi interdum, odio in commodo facilisis, nunc ligula fermentum erat."
+  }
+]

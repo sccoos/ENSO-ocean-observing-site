@@ -1,0 +1,48 @@
+---
+import faqItems from "../data/faq.json";
+---
+
+<div class="hs-accordion-group flex flex-col gap-y-2">
+  {
+    faqItems.map((item, index) => {
+      const id = `faq-item-${index + 1}`;
+      const contentId = `${id}-content`;
+      const isOpen = index === 0;
+
+      return (
+        <div
+          class:list={[
+            "hs-accordion hs-accordion-active:border-layer-line rounded-xl border border-transparent bg-layer",
+            isOpen && "active"
+          ]}
+          id={id}
+        >
+          <button
+            class="hs-accordion-toggle hs-accordion-active:text-primary-active inline-flex w-full items-center justify-between gap-x-3 px-5 py-4 text-start font-semibold text-foreground hover:text-muted-foreground-1 focus:outline-hidden focus:text-muted-foreground-1 disabled:pointer-events-none disabled:opacity-50"
+            aria-expanded={isOpen ? "true" : "false"}
+            aria-controls={contentId}
+          >
+            {item.question}
+            <svg class="hs-accordion-active:hidden block size-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14" />
+              <path d="M12 5v14" />
+            </svg>
+            <svg class="hs-accordion-active:block hidden size-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14" />
+            </svg>
+          </button>
+          <div
+            id={contentId}
+            class:list={["hs-accordion-content w-full overflow-hidden transition-[height] duration-300", !isOpen && "hidden"]}
+            role="region"
+            aria-labelledby={id}
+          >
+            <div class="px-5 pb-4">
+              <p class="text-foreground">{item.answer}</p>
+            </div>
+          </div>
+        </div>
+      );
+    })
+  }
+</div>

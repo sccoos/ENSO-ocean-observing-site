@@ -1,6 +1,6 @@
 import { HSStaticMethods } from "preline/non-auto";
 
-HSStaticMethods.autoInit(["collapse", "tabs"]);
+HSStaticMethods.autoInit(["accordion", "collapse", "tabs"]);
 
 const mobileNavbar = window.matchMedia("(max-width: 1279px)");
 
