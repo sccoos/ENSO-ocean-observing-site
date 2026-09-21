@@ -28,8 +28,9 @@ const baseUrl = import.meta.env.BASE_URL;
   <header class="relative flex w-full flex-wrap border-b border-navbar-line bg-navbar xl:flex-nowrap xl:justify-start">
     <nav class="site-navbar__inner xl:flex xl:items-center xl:justify-between" aria-label="Ocean observing topics">
       <div class="flex items-center justify-between py-3">
-        <a class="flex-none text-sm font-semibold text-foreground focus:outline-hidden focus:opacity-80" href={baseUrl}>
-          The California Ocean Observing System: Tracking El Niño
+        <a class="flex flex-none items-center gap-x-2 text-sm font-semibold text-foreground focus:outline-hidden focus:opacity-80" href={baseUrl}>
+          <img class="size-8 object-contain" src={`${baseUrl}/images/logos/freehand-elnino-globe.png`} alt="" aria-hidden="true" />
+          <span>The California Ocean Observing System: Tracking El Niño</span>
         </a>
         <div class="xl:hidden">
           <button
