@@ -4,14 +4,25 @@ import EmbedFrame from "../components/EmbedFrame.astro";
 
 Add offshore observations, forecasts, and context for conditions beyond the nearshore environment.
 
-<EmbedFrame
-  src="https://spraydata.ucsd.edu/products/el-nino/calooos_1.php"
-  title="CalOOS offshore El Niño conditions"
-  aspectRatio="21 / 9"
-/>
+<div class="max-w-4xl">
+  <EmbedFrame
+    src="https://spraydata.ucsd.edu/products/el-nino/calooos_1.php"
+    title="CalOOS offshore El Niño conditions"
+    aspectRatio="2 / 1"
+  />
+</div>
 
-<EmbedFrame
-  src="https://sccoos.github.io/MUR-sst-anomaly-map/"
-  title="MUR sea surface temperature anomaly map"
-  aspectRatio="1 / 1"
-/>
+<div class="grid gap-6 xl:grid-cols-[minmax(0,1fr)_20rem] xl:items-center">
+  <div class="rounded-xl border border-layer-line bg-layer p-5">
+    <h3 class="text-lg font-semibold text-foreground">Sea Surface Temperature Anomalies</h3>
+    <p class="mt-3 text-muted-foreground">Add explanatory text for the MUR sea surface temperature anomaly map here.</p>
+  </div>
+
+  <div class="w-full max-w-xs justify-self-end">
+    <EmbedFrame
+      src="https://sccoos.github.io/MUR-sst-anomaly-map/"
+      title="MUR sea surface temperature anomaly map"
+      aspectRatio="1 / 1"
+    />
+  </div>
+</div>
