@@ -1,28 +1,18 @@
 ---
-import ShoreStations from "../tab-content/coastal-conditions-shore-stations.mdx";
-import SubsurfaceMoorings from "../tab-content/coastal-conditions-subsurface-moorings.mdx";
+import Gliders from "../tab-content/offshore-conditions-gliders.mdx";
+import Satellite from "../tab-content/offshore-conditions-satellite.mdx";
 
 const tabs = [
-  {
-    id: "surface-shore-stations",
-    route: "coastal-conditions/shore-stations",
-    label: "Surface - Shore Stations",
-    Content: ShoreStations
-  },
-  {
-    id: "subsurface-moorings",
-    route: "coastal-conditions/subsurface-moorings",
-    label: "Subsurface - Moorings",
-    Content: SubsurfaceMoorings
-  }
+  { id: "gliders", route: "offshore-conditions/gliders", label: "Gliders", Content: Gliders },
+  { id: "satellite", route: "offshore-conditions/satellite", label: "Satellite", Content: Satellite }
 ];
 ---
 
-<section aria-label="Coastal condition observations">
+<section aria-label="Offshore condition observations">
   <div class="border-b border-line-2">
     <nav
       class="flex gap-x-1 overflow-x-auto overflow-y-hidden"
-      aria-label="Coastal condition observation types"
+      aria-label="Offshore condition observation types"
       role="tablist"
       aria-orientation="horizontal"
     >
@@ -34,11 +24,11 @@ const tabs = [
               "hs-tab-active:bg-layer hs-tab-active:border-b-transparent hs-tab-active:text-primary-active -mb-px inline-flex items-center gap-x-2 rounded-t-lg border border-line-2 bg-muted px-4 py-3 text-center text-sm font-medium text-muted-foreground-1 hover:text-foreground focus:outline-hidden focus:text-foreground disabled:pointer-events-none disabled:opacity-50",
               index === 0 && "active"
             ]}
-            id={`coastal-conditions-${tab.id}-tab`}
+            id={`offshore-conditions-${tab.id}-tab`}
             data-tab-route={tab.route}
             aria-selected={index === 0 ? "true" : "false"}
-            data-hs-tab={`#coastal-conditions-${tab.id}-panel`}
-            aria-controls={`coastal-conditions-${tab.id}-panel`}
+            data-hs-tab={`#offshore-conditions-${tab.id}-panel`}
+            aria-controls={`offshore-conditions-${tab.id}-panel`}
             role="tab"
           >
             {tab.label}
@@ -52,10 +42,10 @@ const tabs = [
     {
       tabs.map(({ id, Content }, index) => (
         <div
-          id={`coastal-conditions-${id}-panel`}
+          id={`offshore-conditions-${id}-panel`}
           class:list={[index !== 0 && "hidden"]}
           role="tabpanel"
-          aria-labelledby={`coastal-conditions-${id}-tab`}
+          aria-labelledby={`offshore-conditions-${id}-tab`}
         >
           <Content />
         </div>

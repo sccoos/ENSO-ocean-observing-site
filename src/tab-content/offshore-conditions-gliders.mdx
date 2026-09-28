@@ -1,0 +1,19 @@
+import EmbedFrame from "../components/EmbedFrame.astro";
+
+<div class="grid gap-6 xl:grid-cols-[minmax(0,1fr)_502px] xl:items-start">
+  <div class="min-w-0">
+    <EmbedFrame
+      src="https://spraydata.ucsd.edu/products/el-nino/calooos_2.php"
+      title="CalOOS offshore El Niño conditions"
+      height="500px"
+    />
+  </div>
+
+  <div class="my-6 flex overflow-hidden rounded-xl border border-layer-line bg-layer shadow-sm xl:h-[502px] xl:w-[502px]">
+    <img class="h-full w-full object-contain" src={`${import.meta.env.BASE_URL}images/cugn-glider-lines-map.png`} alt="Map of CUGN glider lines" />
+  </div>
+</div>
+
+<div class="rounded-xl border border-layer-line bg-layer p-5">
+  <p class="text-muted-foreground">Water temperature anomalies averaged over the inshore 200 km and upper 100 m of CUGN lines 90, 80 and 66. By this measure, the temperature anomalies on lines 66.7 and 80 earlier this year were the largest they have been in the 20 year record of CUGN gliders. This marine heatwave developed since early 2025 before the current El Niño. The effects of the current El Niño are beginning to be observed in the warming on line 90.</p>
+</div>

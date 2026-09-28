@@ -77,6 +77,21 @@
   color: var(--primary-hover);
 }
 
+.embed-frame__viewport {
+  overflow: hidden;
+  border-radius: calc(var(--radius-xl) - 1px);
+  clip-path: inset(0 round calc(var(--radius-xl) - 1px));
+  contain: paint;
+}
+
+.embed-frame__viewport iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  clip-path: inset(0 round calc(var(--radius-xl) - 1px));
+}
+
 .site-footer {
   background: var(--footer);
   border-top: 1px solid var(--footer-line);

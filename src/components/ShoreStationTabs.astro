@@ -35,6 +35,7 @@ const regions = [
               index === 0 && "active"
             ]}
             id={`shore-stations-${region.id}-tab`}
+            data-tab-route={`coastal-conditions/shore-stations/${region.id}`}
             aria-selected={index === 0 ? "true" : "false"}
             data-hs-tab={`#shore-stations-${region.id}-panel`}
             aria-controls={`shore-stations-${region.id}-panel`}

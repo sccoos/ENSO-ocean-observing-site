@@ -3,20 +3,21 @@ interface Props {
   src: string;
   title: string;
   aspectRatio?: string;
+  height?: string;
+  maxHeight?: string;
 }
 
 const {
   src,
   title,
-  aspectRatio = "16 / 9"
+  aspectRatio = "16 / 9",
+  height,
+  maxHeight
 } = Astro.props;
 ---
 
 <figure class="my-6 overflow-hidden rounded-xl border border-border bg-layer shadow-sm">
-  <div
-    class="overflow-hidden"
-    style="border-radius: calc(var(--radius-xl) - 1px); clip-path: inset(0 round calc(var(--radius-xl) - 1px)); contain: paint;"
-  >
+  <div class="embed-frame__viewport">
     <iframe
       class="block w-full border-0"
       src={src}
@@ -24,7 +25,7 @@ const {
       loading="lazy"
       referrerpolicy="origin"
       sandbox="allow-same-origin allow-scripts"
-      style={`aspect-ratio: ${aspectRatio}; clip-path: inset(0 round calc(var(--radius-xl) - 1px));`}
+      style={`${height ? `height: ${height};` : `aspect-ratio: ${aspectRatio};`}${maxHeight ? ` max-height: ${maxHeight};` : ""}`}
     ></iframe>
   </div>
 </figure>

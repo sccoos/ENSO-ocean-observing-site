@@ -1,6 +1,16 @@
 import EmbedFrame from "../components/EmbedFrame.astro";
 
-## Upwelling
+<div class="grid gap-6 md:grid-cols-2">
+  <article class="rounded-xl border border-layer-line bg-layer p-5">
+    <h3 class="text-lg font-semibold text-foreground">Coastal Upwelling Transport Index (CUTI)</h3>
+    <p class="mt-3 text-muted-foreground">CUTI provides estimates of vertical transport near the coast (i.e., upwelling/downwelling). It was developed as a more accurate alternative to the previously available ‘Bakun Index’.</p>
+  </article>
+
+  <article class="rounded-xl border border-layer-line bg-layer p-5">
+    <h3 class="text-lg font-semibold text-foreground">Biologically Effective Upwelling Transport Index (BEUTI)</h3>
+    <p class="mt-3 text-muted-foreground">BEUTI provides estimates of vertical nitrate flux near the coast (i.e., the amount of nitrate upwelled/downwelled), which may be more relevant than upwelling strength when considering some biological responses.</p>
+  </article>
+</div>
 
 <EmbedFrame
   src="https://sccoos.github.io/cuti-beuti-timeseries/"

@@ -8,17 +8,30 @@ import Overview from "../tab-content/overview.mdx";
 import Upwelling from "../tab-content/upwelling.mdx";
 
 const tabs = [
-  { id: "overview", label: "Overview", Content: Overview },
+  { id: "overview", route: "overview", label: "Overview", Content: Overview },
   {
     id: "coastal-conditions",
+    route: "coastal-conditions",
     label: "Coastal Conditions",
     Content: CoastalConditionsTabs
   },
-  { id: "offshore-conditions", label: "Offshore Conditions", Content: OffshoreConditions },
-  { id: "upwelling", label: "Upwelling", Content: Upwelling },
-  { id: "coastal-erosion", label: "Coastal Erosion", Content: CoastalErosion },
-  { id: "ecosystem-impacts", label: "Ecosystem Impacts", Content: EcosystemImpacts },
-  { id: "faq-resources", label: "FAQ & Resources", Content: Faq }
+  { id: "offshore-conditions", route: "offshore-conditions", label: "Offshore Conditions", Content: OffshoreConditions },
+  { id: "upwelling", route: "upwelling", label: "Upwelling", Content: Upwelling },
+  {
+    id: "coastal-erosion",
+    route: "coastal-erosion",
+    label: "Coastal Erosion",
+    Content: CoastalErosion,
+    disabled: true
+  },
+  {
+    id: "ecosystem-impacts",
+    route: "ecosystem-impacts",
+    label: "Ecosystem Impacts",
+    Content: EcosystemImpacts,
+    disabled: true
+  },
+  { id: "faq-resources", route: "faq-resources", label: "FAQ & Resources", Content: Faq }
 ];
 
 const baseUrl = import.meta.env.BASE_URL;
@@ -71,6 +84,9 @@ const baseUrl = import.meta.env.BASE_URL;
                   index === 0 && "active"
                 ]}
                 id={`${tab.id}-tab`}
+                data-tab-route={tab.route}
+                disabled={tab.disabled}
+                aria-disabled={tab.disabled ? "true" : undefined}
                 aria-selected={index === 0 ? "true" : "false"}
                 data-hs-tab={`#${tab.id}-panel`}
                 aria-controls={`${tab.id}-panel`}

@@ -1,0 +1,16 @@
+import EmbedFrame from "../components/EmbedFrame.astro";
+
+<div class="grid gap-6 xl:grid-cols-[500px_minmax(0,1fr)] xl:items-center">
+  <div class="w-full max-w-[500px] justify-self-start">
+    <EmbedFrame
+      src="https://sccoos.github.io/MUR-sst-anomaly-map/"
+      title="MUR sea surface temperature anomaly map"
+      aspectRatio="1 / 1"
+    />
+  </div>
+
+  <div class="rounded-xl border border-layer-line bg-layer p-5 xl:h-[500px]">
+    <h3 class="text-lg font-semibold text-foreground">Sea Surface Temperature Anomalies</h3>
+    <p class="mt-3 text-muted-foreground">Add explanatory text for the MUR sea surface temperature anomaly map here.</p>
+  </div>
+</div>
