@@ -32,7 +32,7 @@ Start one development server on a predictable local address:
 npm run dev -- --host 127.0.0.1 --port 4321
 ```
 
-Open [http://127.0.0.1:4321/ENSO-ocean-observing-site/](http://127.0.0.1:4321/ENSO-ocean-observing-site/) in a browser. Astro reloads the page after source-file changes. Stop the server with `Ctrl+C` in the terminal where it is running.
+Open [http://127.0.0.1:4321/](http://127.0.0.1:4321/) in a browser. Astro reloads the page after source-file changes. Stop the server with `Ctrl+C` in the terminal where it is running.
 
 If dependencies change, run `npm install` instead of `npm ci` to update `package-lock.json`.
 
@@ -67,6 +67,6 @@ npm run preview
 
 ## Deployment
 
-Pushing to `main` deploys the site to GitHub Pages at [https://sccoos.github.io/ENSO-ocean-observing-site/](https://sccoos.github.io/ENSO-ocean-observing-site/). In the repository's **Settings → Pages**, select **GitHub Actions** as the publishing source before the first deployment.
+Pushing to `main` deploys the site to GitHub Pages. This project is configured for a root-level custom domain, such as [https://enso.caloos.org/](https://enso.caloos.org/), rather than the repository subpath. Configure that domain in the repository's **Settings → Pages** and select **GitHub Actions** as the publishing source before the first deployment.
 
 The generated files are written to `dist/`; source files under `src/` are not served directly.

@@ -4,7 +4,7 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   site: "https://sccoos.github.io",
-  base: "/ENSO-ocean-observing-site",
+  base: "/",
   integrations: [mdx()],
   vite: {
     plugins: [tailwindcss()]
