@@ -16,7 +16,7 @@ const {
 } = Astro.props;
 ---
 
-<figure class="my-6 overflow-hidden rounded-xl border border-border bg-layer shadow-sm">
+<figure class="embed-frame my-6 overflow-hidden rounded-xl border border-border bg-layer shadow-sm" data-embed-frame>
   <div class="embed-frame__viewport">
     <iframe
       class="block w-full border-0"
@@ -28,4 +28,22 @@ const {
       style={`${height ? `height: ${height};` : `aspect-ratio: ${aspectRatio};`}${maxHeight ? ` max-height: ${maxHeight};` : ""}`}
     ></iframe>
   </div>
+  <div class="embed-frame__loading" role="status" aria-label="Loading dashboard">
+    <span class="inline-flex gap-x-1" aria-hidden="true">
+      <span class="size-1.5 rounded-full bg-surface-4 animate-[typing_1s_ease-in-out_infinite]"></span>
+      <span class="size-1.5 rounded-full bg-surface-4 animate-[typing_1s_ease-in-out_infinite_0.2s]"></span>
+      <span class="size-1.5 rounded-full bg-surface-4 animate-[typing_1s_ease-in-out_infinite_0.4s]"></span>
+    </span>
+  </div>
 </figure>
+
+<script>
+  document.querySelectorAll<HTMLIFrameElement>("[data-embed-frame] iframe").forEach((iframe) => {
+    iframe.addEventListener("load", () => {
+      const loader = iframe.closest<HTMLElement>("[data-embed-frame]")
+        ?.querySelector<HTMLElement>(".embed-frame__loading");
+
+      window.setTimeout(() => loader?.setAttribute("hidden", ""), 500);
+    }, { once: true });
+  });
+</script>
