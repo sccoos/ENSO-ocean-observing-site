@@ -195,21 +195,11 @@
 }
 
 .impact-card {
-  display: block;
   min-width: 0;
-  padding: 1.5rem;
-  background: var(--layer);
 }
 
 .impact-card + .impact-card {
   border-top: 1px solid var(--layer-line);
-}
-
-.impact-card__title {
-  margin: 0 0 0.5rem;
-  color: var(--foreground);
-  font-size: 1.125rem;
-  font-weight: 700;
 }
 
 @media (width <= 40rem) {
