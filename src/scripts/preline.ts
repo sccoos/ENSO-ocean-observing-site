@@ -2,7 +2,20 @@ import { HSStaticMethods, HSTabs } from "preline/non-auto";
 
 HSStaticMethods.autoInit(["accordion", "collapse", "tabs"]);
 
-const mobileNavbar = window.matchMedia("(max-width: 1279px)");
+const mobileNavbar = window.matchMedia("(max-width: 767px)");
+
+function updateCurrentPage(route: string) {
+  const topLevelRoute = route.split("/").filter(Boolean)[0];
+  if (!topLevelRoute) return;
+
+  const tab = document.querySelector<HTMLElement>(`[data-tab-route="${topLevelRoute}"]`);
+  const label = tab?.textContent?.trim();
+  if (!label) return;
+
+  document.querySelectorAll<HTMLElement>("[data-current-page]").forEach((currentPage) => {
+    currentPage.textContent = label;
+  });
+}
 
 function openTabRoute(route: string) {
   const segments = route.split("/").filter(Boolean);
@@ -15,6 +28,8 @@ function openTabRoute(route: string) {
     if (!tab || tab.matches(":disabled")) return;
     HSTabs.open(tab);
   }
+
+  updateCurrentPage(route);
 }
 
 function syncTabRouteFromHash() {
@@ -40,6 +55,8 @@ document.addEventListener("click", (event) => {
   if (route && window.location.hash !== `#${route}`) {
     window.history.pushState(null, "", `#${route}`);
   }
+
+  if (route) updateCurrentPage(route);
 });
 
 window.addEventListener("hashchange", syncTabRouteFromHash);

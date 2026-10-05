@@ -1,0 +1,176 @@
+---
+const lines = [
+  { id: "56", label: "Line 56", token: "56" },
+  { id: "66", label: "Line 66", token: "66" },
+  { id: "80", label: "Line 80", token: "80" },
+  { id: "90", label: "Line 90", token: "90" },
+  { id: "alongshore", label: "Along-shore Line", token: "al" }
+];
+
+const imageBaseUrl = "https://spraydata.ucsd.edu/products/cugn-climatology/st/plots";
+---
+
+<section class="mt-10" aria-labelledby="glider-line-viewer-heading" data-glider-line-viewer data-image-base-url={imageBaseUrl}>
+
+  <div class="mt-5 flex gap-4">
+    <div class="shrink-0 border-e border-line-2">
+      <nav class="flex flex-col space-y-2" aria-label="Glider lines" role="tablist" aria-orientation="vertical" data-hs-tabs='{ "eventType": "hover" }'>
+        {
+          lines.map((line, index) => (
+            <button
+              type="button"
+              class:list={[
+                "hs-tab-active:text-primary-active hs-tab-active:after:bg-primary-active relative inline-flex items-center gap-x-2 py-1 pe-4 text-left text-sm whitespace-nowrap text-muted-foreground-1 after:absolute after:-inset-e-px after:inset-y-0 after:h-full after:w-0.5 after:bg-transparent hover:text-primary-hover focus:outline-hidden focus:text-primary-focus disabled:pointer-events-none disabled:opacity-50",
+                index === 0 && "active"
+              ]}
+              id={`glider-line-${line.id}-tab`}
+              aria-selected={index === 0 ? "true" : "false"}
+              data-hs-tab={`#glider-line-${line.id}-panel`}
+              aria-controls={`glider-line-${line.id}-panel`}
+              role="tab"
+            >
+              {line.label}
+            </button>
+          ))
+        }
+      </nav>
+    </div>
+
+    <div class="min-w-0 grow">
+      {
+        lines.map((line, index) => (
+          <div
+            id={`glider-line-${line.id}-panel`}
+            class:list={[index !== 0 && "hidden"]}
+            role="tabpanel"
+            aria-labelledby={`glider-line-${line.id}-tab`}
+            data-glider-line-panel
+            data-line-token={line.token}
+            data-line-label={line.label}
+          >
+            <div class="rounded-xl border border-layer-line bg-layer p-4 shadow-sm">
+              <div class="flex flex-wrap items-center gap-3">
+                <button
+                  type="button"
+                  class="inline-flex size-9 items-center justify-center rounded-lg border border-layer-line bg-background text-foreground hover:bg-muted focus:outline-hidden focus:ring-2 focus:ring-primary"
+                  data-glider-play
+                  aria-label={`Play ${line.label} animation`}
+                  aria-pressed="false"
+                >
+                  <svg class="size-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m8 5 11 7-11 7V5Z" /></svg>
+                </button>
+                <label class="sr-only" for={`glider-line-${line.id}-date`}>Date for {line.label}</label>
+                <input
+                  id={`glider-line-${line.id}-date`}
+                  class="h-2 min-w-32 grow cursor-pointer appearance-none rounded-lg bg-muted accent-primary"
+                  type="range"
+                  min="0"
+                  value="0"
+                  step="1"
+                  data-glider-date-slider
+                />
+                <output class="w-24 text-right text-sm font-medium tabular-nums text-muted-foreground" data-glider-date-label></output>
+              </div>
+
+              <div class="mt-4 overflow-hidden rounded-lg border border-layer-line bg-background">
+                <img class="block h-auto w-full" data-glider-line-image alt={`${line.label} temperature anomaly section`} loading="lazy" />
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  const viewers = document.querySelectorAll<HTMLElement>("[data-glider-line-viewer]");
+
+  function formatDate(date: Date) {
+    return date.toISOString().slice(0, 10);
+  }
+
+  function getAvailableDates() {
+    const dates: Date[] = [];
+    const firstDate = new Date(Date.UTC(2025, 0, 1));
+    const resetDate = new Date(Date.UTC(2026, 0, 1));
+    const endDate = new Date();
+    endDate.setDate(endDate.getDate() - 14);
+    endDate.setUTCHours(0, 0, 0, 0);
+
+    for (let date = new Date(firstDate); date < resetDate; date.setUTCDate(date.getUTCDate() + 10)) {
+      dates.push(new Date(date));
+    }
+
+    for (let date = new Date(resetDate); date <= endDate; date.setUTCDate(date.getUTCDate() + 10)) {
+      dates.push(new Date(date));
+    }
+
+    return dates.map(formatDate);
+  }
+
+  const dates = getAvailableDates();
+
+  viewers.forEach((viewer) => {
+    const imageBaseUrl = viewer.dataset.imageBaseUrl;
+    if (!imageBaseUrl) return;
+
+    viewer.querySelectorAll<HTMLElement>("[data-glider-line-panel]").forEach((panel) => {
+      const lineToken = panel.dataset.lineToken;
+      const lineLabel = panel.dataset.lineLabel;
+      const slider = panel.querySelector<HTMLInputElement>("[data-glider-date-slider]");
+      const label = panel.querySelector<HTMLOutputElement>("[data-glider-date-label]");
+      const image = panel.querySelector<HTMLImageElement>("[data-glider-line-image]");
+      const playButton = panel.querySelector<HTMLButtonElement>("[data-glider-play]");
+      let playTimer: number | undefined;
+
+      if (!lineToken || !lineLabel || !slider || !label || !image || !playButton) return;
+
+      slider.max = String(dates.length - 1);
+      slider.value = String(dates.length - 1);
+
+      const updateImage = () => {
+        const date = dates[Number(slider.value)];
+        label.value = date;
+        image.src = `${imageBaseUrl}/${lineToken}/anommap/xz/t/${lineToken}_anommap_xz_t_${date}.png`;
+      };
+
+      const stopPlayback = () => {
+        if (playTimer === undefined) return;
+        window.clearInterval(playTimer);
+        playTimer = undefined;
+        playButton.setAttribute("aria-pressed", "false");
+        playButton.setAttribute("aria-label", `Play ${lineLabel} animation`);
+        playButton.innerHTML = '<svg class="size-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m8 5 11 7-11 7V5Z" /></svg>';
+      };
+
+      slider.addEventListener("input", () => {
+        stopPlayback();
+        updateImage();
+      });
+
+      playButton.addEventListener("click", () => {
+        if (playTimer !== undefined) {
+          stopPlayback();
+          return;
+        }
+
+        playButton.setAttribute("aria-pressed", "true");
+        playButton.setAttribute("aria-label", "Pause animation");
+        playButton.innerHTML = '<svg class="size-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h3v14H7zM14 5h3v14h-3z" /></svg>';
+        playTimer = window.setInterval(() => {
+          const nextValue = Number(slider.value) + 1;
+          if (nextValue >= dates.length) {
+            stopPlayback();
+            return;
+          }
+
+          slider.value = String(nextValue);
+          updateImage();
+        }, 250);
+      });
+
+      updateImage();
+    });
+  });
+</script>

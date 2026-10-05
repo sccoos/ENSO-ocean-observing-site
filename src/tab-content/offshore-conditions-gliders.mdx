@@ -1,4 +1,9 @@
 import EmbedFrame from "../components/EmbedFrame.astro";
+import GliderLineViewer from "../components/GliderLineViewer.astro";
+
+<div class="rounded-xl border border-layer-line bg-layer p-5">
+  <p class="text-muted-foreground">Water temperature anomalies averaged over the inshore 200 km and upper 100 m of CUGN lines 90, 80 and 66. By this measure, the temperature anomalies on lines 66.7 and 80 earlier this year were the largest they have been in the 20 year record of CUGN gliders. This marine heatwave developed since early 2025 before the current El Niño. The effects of the current El Niño are beginning to be observed in the warming on line 90.</p>
+</div>
 
 <div class="grid gap-6 xl:grid-cols-[minmax(0,1fr)_502px] xl:items-start">
   <div class="min-w-0">
@@ -15,5 +20,7 @@ import EmbedFrame from "../components/EmbedFrame.astro";
 </div>
 
 <div class="rounded-xl border border-layer-line bg-layer p-5">
-  <p class="text-muted-foreground">Water temperature anomalies averaged over the inshore 200 km and upper 100 m of CUGN lines 90, 80 and 66. By this measure, the temperature anomalies on lines 66.7 and 80 earlier this year were the largest they have been in the 20 year record of CUGN gliders. This marine heatwave developed since early 2025 before the current El Niño. The effects of the current El Niño are beginning to be observed in the warming on line 90.</p>
+  <p class="text-muted-foreground">The interannual anomaly of temperature can be viewed below -- it examines cold and warm anomalies over the depth and distance-from-shore extents of each line.</p>
 </div>
+
+<GliderLineViewer />

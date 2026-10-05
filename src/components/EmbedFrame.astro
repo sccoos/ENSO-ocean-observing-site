@@ -3,6 +3,7 @@ interface Props {
   src: string;
   title: string;
   aspectRatio?: string;
+  mobileAspectRatio?: string;
   height?: string;
   maxHeight?: string;
 }
@@ -11,12 +12,18 @@ const {
   src,
   title,
   aspectRatio = "16 / 9",
+  mobileAspectRatio = "1 / 1",
   height,
   maxHeight
 } = Astro.props;
 ---
 
-<figure class="embed-frame my-6 overflow-hidden rounded-xl border border-border bg-layer shadow-sm" data-embed-frame>
+<figure
+  class="embed-frame my-6 overflow-hidden rounded-xl border border-border bg-layer shadow-sm"
+  data-embed-frame
+  data-embed-aspect-ratio={height ? undefined : ""}
+  style={height ? undefined : `--embed-frame-desktop-aspect-ratio: ${aspectRatio}; --embed-frame-mobile-aspect-ratio: ${mobileAspectRatio};`}
+>
   <div class="embed-frame__viewport">
     <iframe
       class="block w-full border-0"
@@ -25,7 +32,7 @@ const {
       loading="lazy"
       referrerpolicy="origin"
       sandbox="allow-same-origin allow-scripts"
-      style={`${height ? `height: ${height};` : `aspect-ratio: ${aspectRatio};`}${maxHeight ? ` max-height: ${maxHeight};` : ""}`}
+      style={`${height ? `height: ${height};` : ""}${maxHeight ? ` max-height: ${maxHeight};` : ""}`}
     ></iframe>
   </div>
   <div class="embed-frame__loading" role="status" aria-label="Loading dashboard">

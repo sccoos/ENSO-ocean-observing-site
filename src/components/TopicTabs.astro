@@ -38,15 +38,16 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 
 <section class="tab-demo" aria-label="Ocean observing topics">
-  <header class="relative flex w-full flex-wrap border-b border-navbar-line bg-navbar xl:flex-nowrap xl:justify-start">
-    <nav class="site-navbar__inner xl:flex xl:items-center xl:justify-between" aria-label="Ocean observing topics">
+  <header class="relative flex w-full flex-wrap border-b border-navbar-line bg-navbar md:flex-nowrap md:justify-start">
+    <nav class="site-navbar__inner md:flex md:items-center md:justify-between" aria-label="Ocean observing topics">
       <div class="flex items-center justify-between py-3">
         <a class="flex flex-none items-center gap-x-2 text-sm font-semibold text-foreground focus:outline-hidden focus:opacity-80" href={baseUrl || "/"}>
           <img class="size-8 object-contain" src={`${baseUrl}/images/logos/freehand-elnino-globe.png`} alt="" aria-hidden="true" />
-          <span class="site-navbar__brand-title site-navbar__brand-title--full">The California Ocean Observing System: Tracking El Niño</span>
+          <span class="site-navbar__brand-title site-navbar__brand-title--full">California Ocean Observing Systems: Tracking El Niño</span>
           <span class="site-navbar__brand-title site-navbar__brand-title--compact">CalOOS: Tracking El Niño</span>
         </a>
-        <div class="xl:hidden">
+        <span class="site-navbar__current-page mr-2 text-sm font-medium text-muted-foreground md:hidden" data-current-page aria-live="polite">Overview</span>
+        <div class="md:hidden">
           <button
             type="button"
             class="hs-collapse-toggle relative flex size-9 items-center justify-center gap-x-2 rounded-lg border border-layer-line bg-layer text-layer-foreground shadow-2xs hover:bg-layer-hover focus:outline-hidden focus:bg-layer-focus disabled:pointer-events-none disabled:opacity-50"
@@ -71,17 +72,17 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
 
       <div
         id="observing-topic-navbar"
-        class="hs-collapse hidden grow basis-full overflow-hidden transition-all duration-300 xl:block xl:grow-0 xl:basis-auto"
+        class="hs-collapse hidden grow basis-full overflow-hidden transition-all duration-300 md:block md:grow-0 md:basis-auto"
         aria-labelledby="observing-topic-navbar-toggle"
         role="region"
       >
-        <div class="flex flex-col gap-1 py-3 xl:flex-row xl:items-center xl:justify-end xl:gap-x-5 xl:py-0" role="tablist" aria-orientation="horizontal">
+        <div class="flex flex-col gap-1 py-3 md:flex-row md:items-center md:justify-end md:gap-x-5 md:py-0" role="tablist" aria-orientation="horizontal">
           {
-            tabs.map((tab, index) => (
+            tabs.filter((tab) => !tab.disabled).map((tab, index) => (
               <button
                 type="button"
                 class:list={[
-                  "hs-tab-active:font-semibold hs-tab-active:text-primary-active hs-tab-active:after:bg-primary-active relative inline-flex items-center rounded-lg px-3 py-2 text-left text-sm text-navbar-nav-foreground hover:text-primary-hover focus:outline-hidden focus:text-primary-focus disabled:pointer-events-none disabled:opacity-50 xl:rounded-none xl:px-1 xl:py-4 xl:after:absolute xl:after:-bottom-px xl:after:inset-x-0 xl:after:h-0.5 xl:after:w-full xl:after:bg-transparent",
+                  "hs-tab-active:font-semibold hs-tab-active:text-primary-active hs-tab-active:after:bg-primary-active relative inline-flex items-center rounded-lg px-3 py-2 text-left text-sm text-navbar-nav-foreground hover:text-primary-hover focus:outline-hidden focus:text-primary-focus disabled:pointer-events-none disabled:opacity-50 md:rounded-none md:px-1 md:py-4 md:after:absolute md:after:-bottom-px md:after:inset-x-0 md:after:h-0.5 md:after:w-full md:after:bg-transparent",
                   index === 0 && "active"
                 ]}
                 id={`${tab.id}-tab`}

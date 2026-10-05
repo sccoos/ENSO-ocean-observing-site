@@ -46,6 +46,14 @@
   display: none;
 }
 
+.site-navbar__current-page {
+  min-width: 0;
+  margin-left: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 @media (width >= 80rem) {
   .site-navbar__brand-title--full {
     display: inline;
@@ -248,6 +256,16 @@
   height: 100%;
   border: 0;
   clip-path: inset(0 round calc(var(--radius-xl) - 1px));
+}
+
+.embed-frame[data-embed-aspect-ratio] iframe {
+  aspect-ratio: var(--embed-frame-desktop-aspect-ratio);
+}
+
+@media (width < 48rem) {
+  .embed-frame[data-embed-aspect-ratio] iframe {
+    aspect-ratio: var(--embed-frame-mobile-aspect-ratio);
+  }
 }
 
 .embed-frame {
