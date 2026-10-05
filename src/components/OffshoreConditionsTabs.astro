@@ -1,10 +1,17 @@
 ---
 import Gliders from "../tab-content/offshore-conditions-gliders.mdx";
 import Satellite from "../tab-content/offshore-conditions-satellite.mdx";
+import ShipBasedSampling from "../tab-content/offshore-conditions-ship-based-sampling.mdx";
 
 const tabs = [
   { id: "gliders", route: "offshore-conditions/gliders", label: "Subsurface - Gliders", Content: Gliders },
-  { id: "satellite", route: "offshore-conditions/satellite", label: "Surface - Satellite", Content: Satellite }
+  { id: "satellite", route: "offshore-conditions/satellite", label: "Surface - Satellite", Content: Satellite },
+  {
+    id: "ship-based-sampling",
+    route: "offshore-conditions/ship-based-sampling",
+    label: "Ship-based sampling",
+    Content: ShipBasedSampling
+  }
 ];
 ---
 
