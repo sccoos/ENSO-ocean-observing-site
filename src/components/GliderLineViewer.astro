@@ -72,8 +72,8 @@ const imageBaseUrl = "https://spraydata.ucsd.edu/products/cugn-climatology/st/pl
                 <output class="w-24 text-right text-sm font-medium tabular-nums text-muted-foreground" data-glider-date-label></output>
               </div>
 
-              <div class="mt-4 overflow-hidden rounded-lg border border-layer-line bg-background">
-                <img class="block h-auto w-full" data-glider-line-image alt={`${line.label} temperature anomaly section`} loading="lazy" />
+              <div class="mt-4 aspect-video overflow-hidden rounded-lg border border-layer-line bg-background">
+                <img class="block size-full object-contain" data-glider-line-image alt={`${line.label} temperature anomaly section`} loading="lazy" />
               </div>
             </div>
           </div>
@@ -153,6 +153,11 @@ const imageBaseUrl = "https://spraydata.ucsd.edu/products/cugn-climatology/st/pl
         if (playTimer !== undefined) {
           stopPlayback();
           return;
+        }
+
+        if (Number(slider.value) >= dates.length - 1) {
+          slider.value = "0";
+          updateImage();
         }
 
         playButton.setAttribute("aria-pressed", "true");
