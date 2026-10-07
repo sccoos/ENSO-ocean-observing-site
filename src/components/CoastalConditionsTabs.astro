@@ -19,6 +19,39 @@ const tabs = [
 ---
 
 <section aria-label="Coastal condition observations">
+  <div class="hs-accordion-group mb-6">
+    <div class="hs-accordion hs-accordion-active:border-layer-line active rounded-xl border border-transparent bg-layer" id="coastal-conditions-key-messages">
+      <button
+        class="hs-accordion-toggle hs-accordion-active:text-primary-active inline-flex w-full items-center justify-between gap-x-3 px-5 py-4 text-start font-semibold text-foreground hover:text-muted-foreground-1 focus:outline-hidden focus:text-muted-foreground-1"
+        aria-expanded="true"
+        aria-controls="coastal-conditions-key-messages-content"
+      >
+        Key messages
+        <svg class="hs-accordion-active:hidden block size-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h14" />
+          <path d="M12 5v14" />
+        </svg>
+        <svg class="hs-accordion-active:block hidden size-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h14" />
+        </svg>
+      </button>
+      <div
+        id="coastal-conditions-key-messages-content"
+        class="hs-accordion-content w-full overflow-hidden transition-[height] duration-300"
+        role="region"
+        aria-labelledby="coastal-conditions-key-messages"
+      >
+        <div class="px-5 pb-5 text-muted-foreground">
+          <ul class="list-disc space-y-3 ps-5">
+            <li><strong class="text-foreground">Warm, but not everywhere.</strong> Nearshore waters off Southern and Central California have run warm since fall 2025. The warmth comes from a marine heatwave that began before the current El Niño. Earlier this year, glider temperature anomalies on Lines 66.7 and 80 were the largest in the 20-year glider record. North of San Francisco, coastal temperatures have mostly been near average to slightly above average.</li>
+            <li><strong class="text-foreground">El Niño's signal is starting to show in Southern California.</strong> The latest warming at Southern California shore stations and on glider Line 90 (off Dana Point) is likely the first direct El Niño influence. The tropical El Niño is very strong, and its effects along the coast usually lag by a few months, so expect more warming through late fall and winter.</li>
+            <li><strong class="text-foreground">Upwelling is causing short cool-downs in Central and Northern California.</strong> Upwelling-favorable winds keep bringing brief cooling to these regions. The dips interrupt the warm conditions but haven't ended them (see the Upwelling page). If El Niño weakens the upwelling winds this winter, these cool breaks may become less frequent.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="border-b border-line-2">
     <nav
       class="flex gap-x-1 overflow-x-auto overflow-y-hidden"
