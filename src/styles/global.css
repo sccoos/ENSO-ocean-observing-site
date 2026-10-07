@@ -145,7 +145,7 @@
   list-style: disc;
 }
 
-.faq-resources__list {
+.resources__list {
   display: grid;
   gap: 0.5rem;
   margin: 0;

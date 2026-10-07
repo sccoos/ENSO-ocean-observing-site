@@ -2,7 +2,7 @@
 import CoastalConditionsTabs from "./CoastalConditionsTabs.astro";
 import CoastalErosion from "../tab-content/coastal-erosion.mdx";
 import EcosystemImpacts from "../tab-content/ecosystem-impacts.mdx";
-import Faq from "../tab-content/faq.mdx";
+import Resources from "../tab-content/resources.mdx";
 import OffshoreConditions from "../tab-content/offshore-conditions.mdx";
 import Overview from "../tab-content/overview.mdx";
 import Upwelling from "../tab-content/upwelling.mdx";
@@ -31,7 +31,7 @@ const tabs = [
     Content: EcosystemImpacts,
     disabled: true
   },
-  { id: "faq-resources", route: "faq-resources", label: "Additional Resources", Content: Faq }
+  { id: "resources", route: "resources", label: "Resources", Content: Resources }
 ];
 
 const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
