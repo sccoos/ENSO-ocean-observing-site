@@ -6,6 +6,7 @@ interface Props {
   mobileAspectRatio?: string;
   height?: string;
   maxHeight?: string;
+  iframeId?: string;
 }
 
 const {
@@ -14,7 +15,8 @@ const {
   aspectRatio = "16 / 9",
   mobileAspectRatio = "1 / 1",
   height,
-  maxHeight
+  maxHeight,
+  iframeId
 } = Astro.props;
 ---
 
@@ -26,6 +28,7 @@ const {
 >
   <div class="embed-frame__viewport">
     <iframe
+      id={iframeId}
       class="block w-full border-0"
       src={src}
       title={title}

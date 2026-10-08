@@ -1,29 +1,31 @@
 ---
 import EmbedFrame from "./EmbedFrame.astro";
 
+const climatologyUrl = "https://sccoos.github.io/caloos-climatologies/";
+
 const regions = [
   {
     id: "north",
     label: "North",
     heading: "Northern California",
-    dashboardUrl: "https://sccoos.github.io/caloos-climatologies/?site=Humboldt"
+    site: "Humboldt"
   },
   {
     id: "central",
     label: "Central",
     heading: "Central California",
-    dashboardUrl: "https://sccoos.github.io/caloos-climatologies/?site=Santa%20Cruz%20Wharf"
+    site: "Santa Cruz Wharf"
   },
   {
     id: "south",
     label: "South",
     heading: "Southern California",
-    dashboardUrl: "https://sccoos.github.io/caloos-climatologies/?site=Scripps%20Pier"
+    site: "Scripps Pier"
   }
 ];
 ---
 
-<div class="my-6 flex flex-col gap-6 sm:flex-row">
+<div class="my-6 flex flex-col gap-6 sm:flex-row" data-shore-station-tabs>
   <div class="shrink-0 border-b border-line-2 pb-3 sm:border-b-0 sm:border-e sm:pb-0 sm:pe-4">
     <nav class="flex flex-col space-y-2" aria-label="Shore station regions" role="tablist" aria-orientation="vertical">
       {
@@ -36,6 +38,8 @@ const regions = [
             ]}
             id={`shore-stations-${region.id}-tab`}
             data-tab-route={`coastal-conditions/shore-stations/${region.id}`}
+            data-dashboard-site={region.site}
+            data-dashboard-title={`${region.heading} El Niño dashboard`}
             aria-selected={index === 0 ? "true" : "false"}
             data-hs-tab={`#shore-stations-${region.id}-panel`}
             aria-controls={`shore-stations-${region.id}-panel`}
@@ -64,13 +68,62 @@ const regions = [
                 Add regional observations, notable conditions, and context for this shoreline.
               </p>
             </div>
-            <EmbedFrame
-              src={region.dashboardUrl}
-              title={`${region.heading} El Niño dashboard`}
-            />
           </div>
         </div>
       ))
     }
+    <div data-shore-station-dashboard>
+      <EmbedFrame
+        src={climatologyUrl}
+        title={`${regions[0].heading} El Niño dashboard`}
+        iframeId="caloos-climatologies"
+      />
+    </div>
   </div>
 </div>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-shore-station-tabs]").forEach((tabs) => {
+    const climatologyFrame = tabs.querySelector<HTMLIFrameElement>("#caloos-climatologies");
+    if (!climatologyFrame) return;
+
+    const climatologyOrigin = "https://sccoos.github.io";
+    let selectedSite: string | null = null;
+    let iframeLoaded = false;
+
+    const setClimatologySite = (site: string, tab?: HTMLElement) => {
+      selectedSite = site;
+      if (tab?.dataset.dashboardTitle) climatologyFrame.title = tab.dataset.dashboardTitle;
+
+      if (!iframeLoaded) return;
+
+      climatologyFrame.contentWindow?.postMessage(
+        { type: "caloos:set-site", site },
+        climatologyOrigin
+      );
+    };
+
+    climatologyFrame.addEventListener("load", () => {
+      iframeLoaded = true;
+      if (selectedSite) setClimatologySite(selectedSite);
+    });
+
+    const setDashboard = (tab: HTMLElement) => {
+      const site = tab.dataset.dashboardSite;
+      const title = tab.dataset.dashboardTitle;
+
+      if (!site) return;
+      if (title) climatologyFrame.title = title;
+      setClimatologySite(site, tab);
+    };
+
+    tabs.addEventListener("change.hs.tab", (event) => {
+      if (event.target instanceof HTMLElement && event.target.matches("[data-dashboard-site]")) {
+        setDashboard(event.target);
+      }
+    });
+
+    const activeTab = tabs.querySelector<HTMLElement>("[data-dashboard-site].active");
+    if (activeTab) setDashboard(activeTab);
+  });
+</script>
