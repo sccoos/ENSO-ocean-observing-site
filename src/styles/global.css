@@ -166,6 +166,8 @@
 
 .data-portal-embed {
   position: relative;
+  display: grid;
+  gap: 1.25rem;
   margin-block: 2rem;
   padding: 1.25rem;
   border: 2px solid rgb(34, 149, 216);
@@ -184,6 +186,18 @@
   font-weight: 700;
   line-height: 1;
   transform: translateY(-50%);
+}
+
+.data-portal-embed__description {
+  margin: 0;
+  color: rgb(34, 149, 216);
+}
+
+.data-portal-embed > hr {
+  width: 100%;
+  margin: 0;
+  border: 0;
+  border-top: 1px solid color-mix(in srgb, rgb(34, 149, 216) 38%, transparent);
 }
 
 .data-portal-embed .embed-frame {

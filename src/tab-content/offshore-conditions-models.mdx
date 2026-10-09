@@ -2,6 +2,8 @@ import EmbedFrame from "../components/EmbedFrame.astro";
 
 <div class="data-portal-embed">
   <span class="data-portal-embed__title">California Ocean Observing Systems Data Portal</span>
+  <p class="data-portal-embed__description">The West Coast Operational Forecasting System (<a class="underline underline-offset-2 hover:opacity-80" href="https://data.caloos.org/?ls=2i3VT67u#metadata/bd85b0d7-be99-45d3-9d1e-c14110170f16/44e71385-64de-44ea-a577-a8198252605d">WCOFS</a>) is an ocean forecasting model for the U.S. West Coast based on open-sourced Regional Ocean Monitoring System (ROMS). It brings together satellite observations, coastal radar, river data, weather forecasts, and ocean physics to estimate present-day conditions and forecast up to three days. The model's variables include temperature, salinity, currents, and sea level; it is currently developmental and intended for research and evaluation.</p>
+  <hr />
   <EmbedFrame
     src="https://data.caloos.org/?ls=2i3VT67u#map"
     title="California Ocean Observing Systems Data Portal"
@@ -9,3 +11,9 @@ import EmbedFrame from "../components/EmbedFrame.astro";
     topCrop="50px"
   />
 </div>
+
+<article class="rounded-xl border border-layer-line bg-layer p-5">
+  <p class="text-muted-foreground">
+    Data citation: NOAA Tides and Currents. West Coast Operational Forecast System (WCOFS) - Developmental. 2022. Accessed from: <a class="text-primary hover:underline" href="https://opendap.co-ops.nos.noaa.gov/threddsdev/catalog/NOAA/WCOFS/MODELS/catalog.html">https://opendap.co-ops.nos.noaa.gov/threddsdev/catalog/NOAA/WCOFS/MODELS/catalog.html</a>
+  </p>
+</article>
