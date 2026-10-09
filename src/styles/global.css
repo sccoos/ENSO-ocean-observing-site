@@ -2,8 +2,20 @@
 @import "../../node_modules/preline/variants.css";
 @import "../../node_modules/preline/css/themes/theme.css";
 @import "../../node_modules/preline/css/themes/moon.css";
+@import "../../node_modules/preline/css/themes/ocean.css";
 
 @source "../../node_modules/preline/dist/*.js";
+
+/* Keep Preline's Ocean theme while matching CALOOS's primary blue. */
+:root[data-theme="theme-ocean"],
+[data-theme="theme-ocean"],
+[data-theme="theme-ocean"].dark {
+  --primary: rgb(34, 149, 216);
+  --primary-hover: color-mix(in srgb, rgb(34, 149, 216) 88%, black);
+  --primary-focus: color-mix(in srgb, rgb(34, 149, 216) 88%, black);
+  --primary-active: color-mix(in srgb, rgb(34, 149, 216) 82%, black);
+  --primary-checked: rgb(34, 149, 216);
+}
 
 @layer base {
   body {
@@ -116,6 +128,69 @@
   padding: 0.75rem 1rem;
   border-bottom: 1px solid var(--layer-line);
   background: var(--surface);
+}
+
+.overview-card .hs-accordion-toggle {
+  justify-content: flex-start;
+}
+
+.overview-card .hs-accordion-toggle :is(.hs-accordion-active\:hidden, .hs-accordion-active\:block) {
+  order: -1;
+}
+
+.offshore-observation-tab {
+  border-color: color-mix(in srgb, var(--foreground) 74%, var(--background));
+  background: color-mix(in srgb, var(--foreground) 74%, var(--background));
+  color: var(--background);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--background) 24%, transparent),
+    inset 0 -1px 0 color-mix(in srgb, var(--foreground) 18%, transparent);
+  text-shadow: 0 -1px 0 color-mix(in srgb, var(--foreground) 45%, transparent);
+}
+
+.offshore-observation-tab:hover {
+  border-color: color-mix(in srgb, var(--foreground) 58%, var(--background));
+  color: color-mix(in srgb, var(--background) 88%, var(--foreground));
+}
+
+.offshore-observation-tab.active {
+  border-color: var(--primary);
+  background: color-mix(in srgb, var(--background) 94%, var(--foreground));
+  color: color-mix(in srgb, var(--foreground) 72%, var(--background));
+  box-shadow:
+    0 0 0 2px color-mix(in srgb, var(--primary) 30%, transparent),
+    inset 0 1px 0 color-mix(in srgb, var(--background) 90%, transparent),
+    inset 0 -1px 0 color-mix(in srgb, var(--foreground) 8%, transparent);
+  text-shadow: 0 1px 0 color-mix(in srgb, var(--background) 90%, transparent);
+}
+
+.data-portal-embed {
+  position: relative;
+  margin-block: 2rem;
+  padding: 1.25rem;
+  border: 2px solid rgb(34, 149, 216);
+  border-radius: var(--radius-xl);
+  background: var(--layer);
+}
+
+.data-portal-embed__title {
+  position: absolute;
+  top: 0;
+  left: 1rem;
+  padding-inline: 0.5rem;
+  background: var(--layer);
+  color: rgb(34, 149, 216);
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1;
+  transform: translateY(-50%);
+}
+
+.data-portal-embed .embed-frame {
+  margin: 0;
+  border: 0;
+  border-radius: calc(var(--radius-xl) - 0.25rem);
+  box-shadow: none;
 }
 
 .tab-demo__panel .overview-card__title {

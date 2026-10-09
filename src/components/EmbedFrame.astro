@@ -7,6 +7,7 @@ interface Props {
   height?: string;
   maxHeight?: string;
   iframeId?: string;
+  topCrop?: string;
 }
 
 const {
@@ -16,8 +17,16 @@ const {
   mobileAspectRatio = "1 / 1",
   height,
   maxHeight,
-  iframeId
+  iframeId,
+  topCrop
 } = Astro.props;
+
+const viewportStyle = height && topCrop ? `height: ${height}; overflow: hidden;` : undefined;
+const iframeStyle = [
+  height ? `height: ${topCrop ? `calc(${height} + ${topCrop})` : height};` : "",
+  maxHeight ? `max-height: ${maxHeight};` : "",
+  topCrop ? `transform: translateY(calc(${topCrop} * -1));` : ""
+].filter(Boolean).join(" ");
 ---
 
 <figure
@@ -26,7 +35,7 @@ const {
   data-embed-aspect-ratio={height ? undefined : ""}
   style={height ? undefined : `--embed-frame-desktop-aspect-ratio: ${aspectRatio}; --embed-frame-mobile-aspect-ratio: ${mobileAspectRatio};`}
 >
-  <div class="embed-frame__viewport">
+  <div class="embed-frame__viewport" style={viewportStyle}>
     <iframe
       id={iframeId}
       class="block w-full border-0"
@@ -34,7 +43,7 @@ const {
       title={title}
       loading="lazy"
       referrerpolicy="origin"
-      style={`${height ? `height: ${height};` : ""}${maxHeight ? ` max-height: ${maxHeight};` : ""}`}
+      style={iframeStyle}
     ></iframe>
   </div>
   <div class="embed-frame__loading" role="status" aria-label="Loading dashboard">
