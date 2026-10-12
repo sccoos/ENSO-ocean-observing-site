@@ -17,6 +17,14 @@
   --primary-checked: rgb(34, 149, 216);
 }
 
+/* Shift secondary copy one neutral step darker on bright Ocean-theme surfaces. */
+:root[data-theme="theme-ocean"]:not(.dark),
+[data-theme="theme-ocean"]:not(.dark) {
+  --muted-foreground: var(--color-gray-500);
+  --muted-foreground-1: var(--color-gray-600);
+  --muted-foreground-2: var(--color-gray-700);
+}
+
 @layer base {
   body {
     display: flex;
