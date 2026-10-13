@@ -13,6 +13,14 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
 <!doctype html>
 <html lang="en" data-theme="theme-ocean">
   <head>
+    <!-- Google tag (gtag.js) -->
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-R8RCRLCTYR"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-R8RCRLCTYR');
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content="California Ocean Observing Systems: Tracking El Niño" />
