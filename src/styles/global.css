@@ -49,6 +49,104 @@
   flex: 1;
 }
 
+.page-help-button {
+  position: fixed;
+  z-index: 40;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  display: grid;
+  width: 3rem;
+  height: 3rem;
+  place-items: center;
+  border: 1px solid var(--primary-active);
+  border-radius: 50%;
+  background: var(--primary);
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1;
+  box-shadow: var(--shadow-lg);
+}
+
+.page-help-button:hover,
+.page-help-button:focus-visible {
+  background: var(--primary-hover);
+  outline: 3px solid color-mix(in srgb, var(--primary) 35%, transparent);
+  outline-offset: 3px;
+}
+
+.page-help-dialog {
+  width: min(calc(100% - 3rem), 34rem);
+  margin: auto;
+  padding: 0;
+  border: 1px solid var(--layer-line);
+  border-radius: var(--radius-xl);
+  background: var(--layer);
+  color: var(--foreground);
+  box-shadow: var(--shadow-xl);
+}
+
+.page-help-dialog::backdrop {
+  background: rgb(0 0 0 / 0.5);
+}
+
+.page-help-dialog__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--layer-line);
+  background: var(--surface);
+}
+
+.page-help-dialog__header h2 {
+  margin: 0;
+  font-size: 1.125rem;
+}
+
+.page-help-dialog__close {
+  display: grid;
+  width: 2rem;
+  height: 2rem;
+  flex: none;
+  place-items: center;
+  border: 0;
+  border-radius: var(--radius-lg);
+  background: transparent;
+  color: var(--muted-foreground-1);
+}
+
+.page-help-dialog__close:hover,
+.page-help-dialog__close:focus-visible {
+  background: var(--layer-hover);
+  color: var(--foreground);
+  outline: none;
+}
+
+.page-help-dialog__close svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.page-help-dialog__content {
+  padding: 1.25rem;
+  color: var(--muted-foreground);
+}
+
+.page-help-dialog__content p + p {
+  margin-top: 1rem;
+}
+
+.page-help-dialog__content a {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.page-help-dialog__content a:hover {
+  color: var(--primary-hover);
+}
+
 .site-page {
   box-sizing: border-box;
   width: min(100% - 3rem, 80rem);

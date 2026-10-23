@@ -1,16 +1,37 @@
-<section class="overview-cards" aria-label="El Nino monitoring overview">
-  <article class="overview-card">
-    <header class="overview-card__header">
-      <h2 class="overview-card__title">Current Outlook: <span class="overview-card__advisory">El Niño Advisory</span></h2>
+<section class="hs-accordion-group overview-cards" aria-label="El Nino monitoring overview">
+  <article class="hs-accordion active overview-card" id="current-outlook">
+    <header class="hs-accordion-heading overview-card__header">
+      <button
+        class="hs-accordion-toggle hs-accordion-active:text-primary-active inline-flex w-full items-center justify-between gap-x-3 text-start hover:text-muted-foreground-1 focus:outline-hidden focus:text-muted-foreground-1"
+        aria-expanded="true"
+        aria-controls="current-outlook-content"
+      >
+        <span class="overview-card__title" id="current-outlook-heading">Current Outlook: <span class="overview-card__advisory">El Niño Advisory</span></span>
+        <svg class="hs-accordion-active:hidden block size-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h14" />
+          <path d="M12 5v14" />
+        </svg>
+        <svg class="hs-accordion-active:block hidden size-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h14" />
+        </svg>
+      </button>
     </header>
-    <div class="overview-card__content">
-      <p class="mb-3 text-sm italic text-muted-foreground">Updated: October 7th, 2026</p>
+    <div
+      id="current-outlook-content"
+      class="hs-accordion-content w-full overflow-hidden transition-[height] duration-300"
+      role="region"
+      aria-labelledby="current-outlook-heading"
+    >
+      <div class="overview-card__content">
+      <p class="mb-3 text-sm italic text-muted-foreground">Updated: October 23rd, 2026</p>
       <ul class="overview-card__list">
-        <li>A persistent warm anomaly has been observed along much of the coast data back to September 2025 (see <a href="#coastal-conditions">Coastal Conditions</a>, <a href="#offshore-conditions">Offshore Conditions</a>).</li>
-        <li>El Niño temperature signals evident at Southern California, both at shore stations and along the glider lines (see <a href="#offshore-conditions/gliders">Gliders</a>).</li>
+        <li>A persistent warm anomaly has been observed along much of the California coast since September 2025 (see <a href="#coastal-conditions">Coastal Conditions</a>, <a href="#offshore-conditions">Offshore Conditions</a>).</li>
+        <li>El Niño temperature signals are now evident in Southern California, both at shore stations and along the glider lines (see <a href="#offshore-conditions/gliders">Gliders</a>).</li>
         <li>In Central and Northern California, upwelling has brought short bursts of cooling. These dips interrupt the warm anomaly but haven't reversed it (see <a href="#upwelling/gliders">Upwelling</a>).</li>
         <li>Much of this warmth started as a marine heatwave before El Niño arrived. Earlier this year, glider temperature anomalies on Lines 66.7 and 80 were the largest in the 20-year glider record.</li>
+        <li>California's ocean observing systems provide real-time and forecast data to track El Niño's arrival and impacts along the coast.</li>
       </ul>
+      </div>
     </div>
   </article>
 </section>
@@ -21,7 +42,7 @@
     <article class="impact-card flex min-w-0 flex-col overflow-hidden bg-layer">
       <div class="grow p-6">
         <h3 class="mb-2 text-lg font-semibold text-foreground">Storms &amp; Flooding</h3>
-        <p>CalOOS collects measurements on sea state, including waves, winds, and water levels, and works across observing programs to deliver actionable information to protect lives and livelihoods.</p>
+        <p>CalOOS collects measurements on sea state (waves, winds, waterlevels), and works across observing programs to deliver actionable information to protect lives and livelihoods.</p>
         <ul class="mt-4 list-disc space-y-1 ps-5">
           <li><span class="underline">Coastal Erosion (coming soon)</span></li>
         </ul>
@@ -44,7 +65,7 @@
     <article class="impact-card flex min-w-0 flex-col overflow-hidden bg-layer">
       <div class="grow p-6">
         <h3 class="mb-2 text-lg font-semibold text-foreground">Ecosystem Response</h3>
-        <p>Changes in ocean and coastal conditions related to El Nino-driven heat, freshwater inputs, salinity, and other biogeochemical parameters can alter ecosystems, including kelp habitats, algae communities, and species distribution.</p>
+        <p>Changes in ocean and coastal conditions related to El Nino-driven heat, freshwater inputs (salinity), and other biogeochemical parameters can result in altered ecosystems, including kelp habitats, algae communities, and species distribution.</p>
         <ul class="mt-4 list-disc space-y-1 ps-5">
           <li><a class="text-primary hover:underline" href="#upwelling">Upwelling</a></li>
           <li><span class="underline">Ecosystem Impacts (coming soon)</span></li>

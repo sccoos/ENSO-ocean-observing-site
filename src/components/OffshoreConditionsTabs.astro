@@ -3,6 +3,7 @@ import Gliders from "../tab-content/offshore-conditions-gliders.mdx";
 import Satellite from "../tab-content/offshore-conditions-satellite.mdx";
 import ShipBasedSampling from "../tab-content/offshore-conditions-ship-based-sampling.mdx";
 import Models from "../tab-content/offshore-conditions-models.mdx";
+import CugnGliderIcon from "./icons/CugnGliderIcon.astro";
 
 const tabs = [
   { id: "gliders", route: "offshore-conditions/gliders", label: "Gliders", coverage: "Subsurface", Content: Gliders },
@@ -42,36 +43,39 @@ const tabs = [
         >
           {
             tab.id === "gliders" && (
-              <svg class="size-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M3 18h18" />
-                <path d="M6 18 9 8l3 5 3-5 3 10" />
-                <path d="M9 8V4" />
-              </svg>
+              <CugnGliderIcon />
             )
           }
           {
             tab.id === "satellite" && (
-              <svg class="size-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="m10 13 4-4" />
-                <path d="m7 10-3-3m13 10 3 3" />
-                <rect x="8" y="8" width="8" height="8" rx="1" />
-                <path d="m3 21 4-4m10-10 4-4" />
+              /* Tabler satellite (MIT); license and attribution: /licenses/icons.txt. Stroke adjusted to 1.5. */
+              <svg class="size-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <g transform="translate(24 0) scale(-1 1)">
+                  <path d="M3.707 6.293l2.586 -2.586a1 1 0 0 1 1.414 0l5.586 5.586a1 1 0 0 1 0 1.414l-2.586 2.586a1 1 0 0 1 -1.414 0l-5.586 -5.586a1 1 0 0 1 0 -1.414" />
+                  <path d="M6 10l-3 3l3 3l3 -3" />
+                  <path d="M10 6l3 -3l3 3l-3 3" />
+                  <path d="M12 12l1.5 1.5" />
+                  <path d="M14.5 17a2.5 2.5 0 0 0 2.5 -2.5" />
+                  <path d="M15 21a6 6 0 0 0 6 -6" />
+                </g>
               </svg>
             )
           }
           {
             tab.id === "ship-based-sampling" && (
-              <svg class="size-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M3 17h18l-3 3H6l-3-3Z" />
-                <path d="M8 17V7h8v10" />
-                <path d="M12 7V3" />
-                <path d="M5 21c1 1 3 1 4 0 1 1 3 1 4 0 1 1 3 1 4 0" />
+              /* Lucide ship (ISC); license and attribution: /licenses/icons.txt. Stroke adjusted to 1.5. */
+              <svg class="size-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 2v2" />
+                <path d="M12 9.189V13" />
+                <path d="M19 12V6a2 2 0 00-2-2H7a2 2 0 00-2 2v6" />
+                <path d="M19.38 19A11.6 11.6 0 0021 13l-8.188-3.639a2 2 0 00-1.624 0L3 13.001a11.6 11.6 0 002.81 7.76" />
+                <path d="M2 20c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1s1.2 1 2.5 1c2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1" />
               </svg>
             )
           }
           {
             tab.id === "models" && (
-              <svg class="size-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <svg class="size-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M4 19V5" />
                 <path d="M4 19h16" />
                 <path d="m7 15 4-4 3 2 5-6" />

@@ -17,6 +17,11 @@ function updateCurrentPage(route: string) {
   });
 }
 
+function resolveDefaultRoute(route: string) {
+  const tab = document.querySelector<HTMLElement>(`[data-tab-route="${route}"]`);
+  return tab?.dataset.defaultTabRoute || route;
+}
+
 function openTabRoute(route: string) {
   const segments = route.split("/").filter(Boolean);
   let currentRoute = "";
@@ -30,11 +35,16 @@ function openTabRoute(route: string) {
   }
 
   updateCurrentPage(route);
+  window.dispatchEvent(new CustomEvent("tabroutechange", { detail: { route } }));
 }
 
 function syncTabRouteFromHash() {
   const route = window.location.hash.slice(1);
-  if (route) openTabRoute(route);
+  if (!route) return;
+
+  const resolvedRoute = resolveDefaultRoute(route);
+  if (resolvedRoute !== route) window.history.replaceState(null, "", `#${resolvedRoute}`);
+  openTabRoute(resolvedRoute);
 }
 
 document.addEventListener("click", (event) => {
@@ -51,12 +61,13 @@ document.addEventListener("click", (event) => {
 
   const tab = event.target.closest<HTMLElement>("[data-tab-route]");
   const route = tab?.dataset.tabRoute;
+  const resolvedRoute = route && resolveDefaultRoute(route);
 
-  if (route && window.location.hash !== `#${route}`) {
-    window.history.pushState(null, "", `#${route}`);
+  if (resolvedRoute && window.location.hash !== `#${resolvedRoute}`) {
+    window.history.pushState(null, "", `#${resolvedRoute}`);
   }
 
-  if (route) updateCurrentPage(route);
+  if (resolvedRoute) openTabRoute(resolvedRoute);
 });
 
 window.addEventListener("hashchange", syncTabRouteFromHash);

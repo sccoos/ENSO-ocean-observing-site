@@ -8,19 +8,22 @@ const regions = [
     id: "north",
     label: "North",
     heading: "Northern California",
-    site: "Humboldt"
+    site: "Humboldt",
+    summary:"Northern California shore stations have seen water temperatures near average to slightly above average in recent weeks, without the persistent heat recorded farther south. Short cool-downs from upwelling have repeatedly interrupted warm spells, so the past six months look variable rather than steadily warming. El Niño warming usually reaches the north coast later than Southern California, so temperatures here may climb through late fall and winter."
   },
   {
     id: "central",
     label: "Central",
     heading: "Central California",
-    site: "Santa Cruz Wharf"
+    site: "Santa Cruz Wharf",
+    summary: "Central California shore stations, including the Santa Cruz Wharf, have run warmer than average for much of the past year, part of a marine heatwave that began before the current El Niño. Short upwelling events have brought brief cool-downs but haven't ended the warm pattern, and El Niño may add more warmth through late fall and winter."
   },
   {
     id: "south",
     label: "South",
     heading: "Southern California",
-    site: "Scripps Pier"
+    site: "Scripps Pier",
+    summary: "Southern California shore stations have recorded record-breaking heat in 2026. By late May, Scripps Pier, which has a sea-surface temperature record of more than 100 years, had set 38 daily high-temperature records, with many readings 3–7°F above the long-term average. This warmth comes from a marine heatwave that began before the current El Niño."
   }
 ];
 ---
@@ -63,9 +66,10 @@ const regions = [
         >
           <div>
             <div class="pt-6">
-              <h3 class="text-xl font-semibold text-foreground">{region.heading}</h3>
+              <h3 class="text-xl font-semibold text-foreground">Sea Surface Temperature: {region.heading}</h3>
               <p class="mt-4 text-muted-foreground">
-                Add regional observations, notable conditions, and context for this shoreline.
+                <strong>Conditions summary: </strong> 
+                {region.summary}
               </p>
             </div>
           </div>

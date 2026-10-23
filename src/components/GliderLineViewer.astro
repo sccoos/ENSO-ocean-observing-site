@@ -72,8 +72,12 @@ const imageBaseUrl = "https://spraydata.ucsd.edu/products/cugn-climatology/st/pl
                 <output class="w-24 text-right text-sm font-medium tabular-nums text-muted-foreground" data-glider-date-label></output>
               </div>
 
-              <div class="mt-4 aspect-video overflow-hidden rounded-lg border border-layer-line bg-background">
-                <img class="block size-full object-contain" data-glider-line-image alt={`${line.label} temperature anomaly section`} loading="lazy" />
+              <div class="mt-4 aspect-video overflow-hidden rounded-lg border border-layer-line bg-background" data-glider-image-container aria-busy="false">
+                <img class="block size-full object-contain" data-glider-line-image alt={`${line.label} temperature anomaly section`} hidden />
+              </div>
+              <div class="mt-2 flex min-h-6 items-center gap-3 text-sm text-muted-foreground">
+                <span role="status" data-glider-status></span>
+                <button type="button" class="shrink-0 rounded border border-layer-line px-2 py-1 text-foreground hover:bg-muted focus:outline-hidden focus:ring-2 focus:ring-primary" data-glider-retry hidden>Retry</button>
               </div>
             </div>
           </div>
@@ -84,98 +88,5 @@ const imageBaseUrl = "https://spraydata.ucsd.edu/products/cugn-climatology/st/pl
 </section>
 
 <script>
-  const viewers = document.querySelectorAll<HTMLElement>("[data-glider-line-viewer]");
-
-  function formatDate(date: Date) {
-    return date.toISOString().slice(0, 10);
-  }
-
-  function getAvailableDates() {
-    const dates: Date[] = [];
-    const firstDate = new Date(Date.UTC(2025, 0, 1));
-    const resetDate = new Date(Date.UTC(2026, 0, 1));
-    const endDate = new Date();
-    endDate.setDate(endDate.getDate() - 14);
-    endDate.setUTCHours(0, 0, 0, 0);
-
-    for (let date = new Date(firstDate); date < resetDate; date.setUTCDate(date.getUTCDate() + 10)) {
-      dates.push(new Date(date));
-    }
-
-    for (let date = new Date(resetDate); date <= endDate; date.setUTCDate(date.getUTCDate() + 10)) {
-      dates.push(new Date(date));
-    }
-
-    return dates.map(formatDate);
-  }
-
-  const dates = getAvailableDates();
-
-  viewers.forEach((viewer) => {
-    const imageBaseUrl = viewer.dataset.imageBaseUrl;
-    if (!imageBaseUrl) return;
-
-    viewer.querySelectorAll<HTMLElement>("[data-glider-line-panel]").forEach((panel) => {
-      const lineToken = panel.dataset.lineToken;
-      const lineLabel = panel.dataset.lineLabel;
-      const slider = panel.querySelector<HTMLInputElement>("[data-glider-date-slider]");
-      const label = panel.querySelector<HTMLOutputElement>("[data-glider-date-label]");
-      const image = panel.querySelector<HTMLImageElement>("[data-glider-line-image]");
-      const playButton = panel.querySelector<HTMLButtonElement>("[data-glider-play]");
-      let playTimer: number | undefined;
-
-      if (!lineToken || !lineLabel || !slider || !label || !image || !playButton) return;
-
-      slider.max = String(dates.length - 1);
-      slider.value = String(dates.length - 1);
-
-      const updateImage = () => {
-        const date = dates[Number(slider.value)];
-        label.value = date;
-        image.src = `${imageBaseUrl}/${lineToken}/anommap/xz/t/${lineToken}_anommap_xz_t_${date}.png`;
-      };
-
-      const stopPlayback = () => {
-        if (playTimer === undefined) return;
-        window.clearInterval(playTimer);
-        playTimer = undefined;
-        playButton.setAttribute("aria-pressed", "false");
-        playButton.setAttribute("aria-label", `Play ${lineLabel} animation`);
-        playButton.innerHTML = '<svg class="size-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m8 5 11 7-11 7V5Z" /></svg>';
-      };
-
-      slider.addEventListener("input", () => {
-        stopPlayback();
-        updateImage();
-      });
-
-      playButton.addEventListener("click", () => {
-        if (playTimer !== undefined) {
-          stopPlayback();
-          return;
-        }
-
-        if (Number(slider.value) >= dates.length - 1) {
-          slider.value = "0";
-          updateImage();
-        }
-
-        playButton.setAttribute("aria-pressed", "true");
-        playButton.setAttribute("aria-label", "Pause animation");
-        playButton.innerHTML = '<svg class="size-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h3v14H7zM14 5h3v14h-3z" /></svg>';
-        playTimer = window.setInterval(() => {
-          const nextValue = Number(slider.value) + 1;
-          if (nextValue >= dates.length) {
-            stopPlayback();
-            return;
-          }
-
-          slider.value = String(nextValue);
-          updateImage();
-        }, 250);
-      });
-
-      updateImage();
-    });
-  });
+  import "../scripts/glider-line-viewer";
 </script>

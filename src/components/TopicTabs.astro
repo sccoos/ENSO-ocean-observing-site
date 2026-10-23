@@ -12,10 +12,17 @@ const tabs = [
   {
     id: "coastal-conditions",
     route: "coastal-conditions",
+    defaultRoute: "coastal-conditions/shore-stations/north",
     label: "Coastal Conditions",
     Content: CoastalConditionsTabs
   },
-  { id: "offshore-conditions", route: "offshore-conditions", label: "Offshore Conditions", Content: OffshoreConditions },
+  {
+    id: "offshore-conditions",
+    route: "offshore-conditions",
+    defaultRoute: "offshore-conditions/gliders",
+    label: "Offshore Conditions",
+    Content: OffshoreConditions
+  },
   { id: "upwelling", route: "upwelling", label: "Upwelling", Content: Upwelling },
   {
     id: "coastal-erosion",
@@ -86,6 +93,7 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
                 ]}
                 id={`${tab.id}-tab`}
                 data-tab-route={tab.route}
+                data-default-tab-route={tab.defaultRoute}
                 disabled={tab.disabled}
                 aria-disabled={tab.disabled ? "true" : undefined}
                 aria-selected={index === 0 ? "true" : "false"}
