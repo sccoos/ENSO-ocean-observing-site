@@ -20,6 +20,9 @@ import { pageHelp } from "../data/page-help";
   <div class="page-help-dialog__content" data-page-help-content-container>
     <p>Details for this section will be added soon.</p>
   </div>
+  <div class="page-help-dialog__feedback">
+    <button type="button" class="site-footer__feedback-button" data-help-feedback>Give feedback</button>
+  </div>
 </dialog>
 
 {
@@ -71,6 +74,10 @@ import { pageHelp } from "../data/page-help";
   });
 
   document.querySelector('[data-page-help-close]')?.addEventListener("click", () => dialog?.close());
+  document.querySelector('[data-help-feedback]')?.addEventListener("click", () => {
+    dialog?.close();
+    document.querySelector<HTMLButtonElement>('[data-feedback-open]')?.click();
+  });
 
   dialog?.addEventListener("click", (event) => {
     if (event.target === dialog) dialog.close();
