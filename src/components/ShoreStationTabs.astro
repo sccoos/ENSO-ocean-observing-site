@@ -9,21 +9,22 @@ const regions = [
     label: "North",
     heading: "Northern California",
     site: "Humboldt",
-    summary:"Northern California shore stations have seen water temperatures near average to slightly above average in recent weeks, without the persistent heat recorded farther south. Short cool-downs from upwelling have repeatedly interrupted warm spells, so the past six months look variable rather than steadily warming. El Niño warming usually reaches the north coast later than Southern California, so temperatures here may climb through late fall and winter."
+    lead: "El Niño warming has reached the North Coast.",
+    summary: "In the past week, nearshore water temperatures off Humboldt County climbed about 3 °C. CeNCOOS shore stations in Humboldt Bay and Trinidad Pier have set new daily highs every day since Nov 8. El Niño has pushed Humboldt Bay water levels 1.2–1.4 ft above predicted tides, and together with 22–24 ft breaking waves on Nov 8, this brought minor flooding around Humboldt Bay."
   },
   {
     id: "central",
     label: "Central",
     heading: "Central California",
     site: "Santa Cruz Wharf",
-    summary: "Central California shore stations, including the Santa Cruz Wharf, have run warmer than average for much of the past year, part of a marine heatwave that began before the current El Niño. Short upwelling events have brought brief cool-downs but haven't ended the warm pattern, and El Niño may add more warmth through late fall and winter."
+    summary: "El Nino has arrived in central cal The M1 mooring (see attached time series from the 60 meter CTD) is indicating anomalous warming at depth, a signature of the arrival of El Niño to Monterey Bay. The current temperature at 60 meters is over 16 degrees C and climbing towards the current record observed at M1 on the 19th of November 1997 another big El Niño."
   },
   {
     id: "south",
     label: "South",
     heading: "Southern California",
     site: "Scripps Pier",
-    summary: "Southern California shore stations have recorded record-breaking heat in 2026. By late May, Scripps Pier, which has a sea-surface temperature record of more than 100 years, had set 38 daily high-temperature records, with many readings 3–7°F above the long-term average. This warmth comes from a marine heatwave that began before the current El Niño."
+    summary: "Southern California shore stations have recorded record-breaking heat throughout 2026. At Scripps Pier, 73 days this year have set new daily highs, from late winter through November, and readings this fall have run 5–7 °C (9–13 °F) above average. Scripps Shore Stations manager Melissa Carter says the only comparable October in the record was 2015, when a marine heatwave was followed by El Niño. This year’s warmth also began as a marine heatwave, and El Niño is now adding to it."
   }
 ];
 ---
@@ -68,6 +69,7 @@ const regions = [
           <article class="rounded-xl border border-layer-line bg-layer p-5">
             <p class="text-muted-foreground">
               <strong>Conditions summary: </strong>
+              {region.lead && <strong>{region.lead} </strong>}
               {region.summary}
             </p>
           </article>
