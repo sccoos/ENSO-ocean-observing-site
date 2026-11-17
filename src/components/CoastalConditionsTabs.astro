@@ -5,29 +5,29 @@ import SubsurfaceMoorings from "../tab-content/coastal-conditions-subsurface-moo
 const tabs = [
   {
     id: "surface-shore-stations",
-    route: "coastal-conditions/shore-stations",
+    route: "coastal-temperatures/shore-stations",
     label: "Surface - Shore Stations",
     Content: ShoreStations
   },
   {
     id: "subsurface-moorings",
-    route: "coastal-conditions/subsurface-moorings",
+    route: "coastal-temperatures/subsurface-moorings",
     label: "Subsurface - Moorings",
     Content: SubsurfaceMoorings
   }
 ];
 ---
 
-<section aria-label="Coastal condition observations">
+<section aria-label="Coastal temperature observations">
   <div class="hs-accordion-group mb-6">
-    <div class="hs-accordion active overview-card" id="coastal-conditions-key-messages">
+    <div class="hs-accordion active overview-card" id="coastal-temperatures-key-messages">
       <header class="hs-accordion-heading overview-card__header">
         <button
           class="hs-accordion-toggle hs-accordion-active:text-primary-active inline-flex w-full items-center justify-between gap-x-3 text-start hover:text-muted-foreground-1 focus:outline-hidden focus:text-muted-foreground-1"
           aria-expanded="true"
-          aria-controls="coastal-conditions-key-messages-content"
+          aria-controls="coastal-temperatures-key-messages-content"
         >
-          <span class="overview-card__title" id="coastal-conditions-key-messages-heading">Key messages</span>
+          <span class="overview-card__title" id="coastal-temperatures-key-messages-heading">Key messages</span>
           <svg class="hs-accordion-active:hidden block size-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M5 12h14" />
             <path d="M12 5v14" />
@@ -38,10 +38,10 @@ const tabs = [
         </button>
       </header>
       <div
-        id="coastal-conditions-key-messages-content"
+        id="coastal-temperatures-key-messages-content"
         class="hs-accordion-content w-full overflow-hidden transition-[height] duration-300"
         role="region"
-        aria-labelledby="coastal-conditions-key-messages-heading"
+        aria-labelledby="coastal-temperatures-key-messages-heading"
       >
         <div class="overview-card__content text-muted-foreground">
           <p class="mb-3 text-sm italic text-muted-foreground">Updated: October 23rd, 2026</p>
@@ -58,7 +58,7 @@ const tabs = [
   <div class="border-b border-line-2">
     <nav
       class="flex gap-x-1 overflow-x-auto overflow-y-hidden"
-      aria-label="Coastal condition observation types"
+      aria-label="Coastal temperature observation types"
       role="tablist"
       aria-orientation="horizontal"
     >
@@ -70,11 +70,11 @@ const tabs = [
               "hs-tab-active:bg-layer hs-tab-active:border-b-transparent hs-tab-active:text-primary-active -mb-px inline-flex items-center gap-x-2 rounded-t-lg border border-line-2 bg-muted px-4 py-3 text-center text-sm font-medium text-muted-foreground-1 hover:text-foreground focus:outline-hidden focus:text-foreground disabled:pointer-events-none disabled:opacity-50",
               index === 0 && "active"
             ]}
-            id={`coastal-conditions-${tab.id}-tab`}
+            id={`coastal-temperatures-${tab.id}-tab`}
             data-tab-route={tab.route}
             aria-selected={index === 0 ? "true" : "false"}
-            data-hs-tab={`#coastal-conditions-${tab.id}-panel`}
-            aria-controls={`coastal-conditions-${tab.id}-panel`}
+            data-hs-tab={`#coastal-temperatures-${tab.id}-panel`}
+            aria-controls={`coastal-temperatures-${tab.id}-panel`}
             role="tab"
           >
             {tab.label}
@@ -88,10 +88,10 @@ const tabs = [
     {
       tabs.map(({ id, Content }, index) => (
         <div
-          id={`coastal-conditions-${id}-panel`}
+          id={`coastal-temperatures-${id}-panel`}
           class:list={[index !== 0 && "hidden"]}
           role="tabpanel"
-          aria-labelledby={`coastal-conditions-${id}-tab`}
+          aria-labelledby={`coastal-temperatures-${id}-tab`}
         >
           <Content />
         </div>
