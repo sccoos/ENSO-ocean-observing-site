@@ -5,9 +5,10 @@ export const pageHelp = {
     <p>Data are quality-controlled following national QARTOD standards. Full records are available on the <a href="https://data.caloos.org">CalOOS Data Portal</a>.</p>
   `,
   "coastal-temperatures/subsurface-moorings": `
-    <p><strong>Choose a depth.</strong> The vertical scale on the left marks each sensor depth on the mooring. Click a depth marker or drag the arrow (shown at 20 m). A dashed line marks that depth across the heat map, and the line chart updates to show its temperature anomaly.</p>
+    <p><strong>Choose a mooring.</strong> Use the mooring selector to switch between M1 in Monterey Bay and Del Mar.</p>
+    <p><strong>Choose a depth.</strong> The vertical scale on the left marks each sensor depth on the mooring. Click a depth marker or drag the arrow (shown at 20 m). A dashed line marks that depth across the heat map, and the line chart updates to show its weekly average temperature.</p>
     <p><strong>Read the heat map.</strong> Each vertical stripe is a point in time, and depth increases downward. Red shows water warmer than normal for that time of year, and blue shows cooler water. Darker colors mean larger anomalies (see the color scale, top right).</p>
-    <p><strong>Explore the time series.</strong> Hover over the line chart to see the date and anomaly value at that point. To zoom in on a time period, click and drag across the chart, then double-click to return to the full record.</p>
+    <p><strong>Explore the time series.</strong> Hover over the line chart to see the date and weekly average temperature at the selected depth. To zoom in on a time period, click and drag across the chart, then double-click to return to the full record.</p>
   `,
   "offshore-conditions/gliders": `
     <p><strong>Time series.</strong> Each line's temperature anomaly is the departure from its long-term average for that time of year, averaged over the upper 100 m and the 200 km nearest shore. It is plotted alongside the Oceanic Niño Index (ONI) to compare local warming with El Niño in the tropics.</p>
