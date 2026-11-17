@@ -1,0 +1,188 @@
+<figure class="steric-height-chart my-6 rounded-xl border border-layer-line p-4 shadow-sm" aria-labelledby="steric-height-chart-title">
+  <div class="mb-3 flex flex-wrap items-center justify-between gap-3">
+    <figcaption id="steric-height-chart-title" class="font-semibold text-foreground">CUGN Steric Height</figcaption>
+    <button class="rounded border border-layer-line px-3 py-1.5 text-sm text-foreground hover:bg-muted focus:outline-hidden focus:ring-2 focus:ring-primary" type="button" data-steric-height-reset>Reset zoom</button>
+  </div>
+  <p class="mb-3 text-sm">Drag across the chart to zoom; double-click to reset. Steric height is shown in meters; RONI is shown in °C.</p>
+  <div class="relative min-h-96" data-steric-height-chart aria-busy="true">
+    <div class="steric-height-tooltip" data-steric-height-values hidden></div>
+  </div>
+  <div class="steric-height-legend" aria-label="Chart legend">
+    <span><i style="--series-color: #c2410c"></i>Line 90</span>
+    <span><i style="--series-color: #0369a1"></i>Line 80</span>
+    <span><i style="--series-color: #047857"></i>Line 66</span>
+    <span><i style="--series-color: #374151"></i>RONI</span>
+  </div>
+  <p class="mt-3 text-sm text-red-700" data-steric-height-error hidden></p>
+</figure>
+
+<script>
+  import * as d3 from "d3";
+
+  type RawSeries = { time: number[]; steric_height: number[]; roni: number[] };
+  type RawData = Record<"stericheight_66" | "stericheight_80" | "stericheight_90", RawSeries>;
+  type Point = { date: Date; value: number };
+  type Series = { name: string; color: string; dasharray?: string; points: Point[] };
+
+  const chartContainer = document.querySelector<HTMLElement>("[data-steric-height-chart]");
+  const errorMessage = document.querySelector<HTMLElement>("[data-steric-height-error]");
+  const resetButton = document.querySelector<HTMLButtonElement>("[data-steric-height-reset]");
+  const valuesContainer = document.querySelector<HTMLElement>("[data-steric-height-values]");
+
+  if (chartContainer && errorMessage && resetButton && valuesContainer) {
+    const chart = chartContainer;
+    const valuesDisplay = valuesContainer;
+    const parseSeries = (raw: RawSeries, name: string, color: string, dasharray?: string): Series => ({
+      name,
+      color,
+      dasharray,
+      points: raw.time.map((time, index) => ({
+        date: new Date(time * 1000),
+        value: raw.steric_height[index]
+      })).filter((point) => Number.isFinite(point.value))
+    });
+
+    const nearestPoint = (points: Point[], date: Date) => {
+      const index = d3.bisector<Point, Date>((point) => point.date).center(points, date);
+      return points[Math.max(0, Math.min(index, points.length - 1))];
+    };
+
+    fetch("/data/stericheight_indices.json")
+      .then((response) => {
+        if (!response.ok) throw new Error("The steric-height data could not be loaded.");
+        return response.json() as Promise<RawData>;
+      })
+      .then((data) => {
+        const series = [
+          parseSeries(data.stericheight_90, "Line 90", "#c2410c"),
+          parseSeries(data.stericheight_80, "Line 80", "#0369a1"),
+          parseSeries(data.stericheight_66, "Line 66", "#047857")
+        ];
+        const roni: Series = {
+          name: "RONI",
+          color: "#374151",
+          points: data.stericheight_90.time.map((time, index) => ({ date: new Date(time * 1000), value: data.stericheight_90.roni[index] }))
+            .filter((point) => Number.isFinite(point.value))
+        };
+        const allPoints = series.flatMap((item) => item.points);
+        const formatMonth = d3.timeFormat("%b %Y");
+
+        if (series.some((item) => item.points.length === 0) || roni.points.length === 0) throw new Error("The steric-height data is empty.");
+        const fullDomain = d3.extent(allPoints, (point) => point.date) as [Date, Date];
+        let domain = fullDomain;
+
+        function draw() {
+          if (!chart.clientWidth) return;
+          const width = chart.clientWidth;
+          const height = Math.max(Math.min(width * 0.62, 520), 380);
+          const margin = { top: 24, right: 70, bottom: 54, left: 64 };
+          const innerWidth = width - margin.left - margin.right;
+          const innerHeight = height - margin.top - margin.bottom;
+          const x = d3.scaleTime().domain(domain).range([0, innerWidth]);
+          const ySteric = d3.scaleLinear().domain([-0.2, 0.2]).range([innerHeight, 0]);
+          const yRoni = d3.scaleLinear().domain([-2, 3]).range([innerHeight, 0]);
+          const svg = d3.select(chart).selectAll<SVGSVGElement, null>("svg").data([null]).join("svg")
+            .attr("viewBox", `0 0 ${width} ${height}`)
+            .attr("width", width)
+            .attr("height", height)
+            .attr("role", "img")
+            .attr("aria-label", "Steric height anomalies for CUGN Lines 90, 80, and 66, with the Relative Oceanic Niño Index.");
+
+          svg.selectAll("*").remove();
+          const plot = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+          const clipId = "steric-height-clip";
+          plot.append("defs").append("clipPath").attr("id", clipId).append("rect").attr("width", innerWidth).attr("height", innerHeight);
+
+          plot.append("g").call(d3.axisLeft(ySteric).ticks(5).tickSize(-innerWidth).tickFormat(d3.format(".2f")))
+            .call((axis) => axis.select(".domain").remove())
+            .call((axis) => axis.selectAll(".tick line").attr("stroke", "#333").attr("stroke-width", 1))
+            .call((axis) => axis.selectAll("text").attr("fill", "currentColor"));
+          plot.append("g").attr("transform", `translate(${innerWidth},0)`).call(d3.axisRight(yRoni).ticks(5))
+            .call((axis) => axis.selectAll("text").attr("fill", "currentColor"));
+          const xAxis = d3.axisBottom(x).ticks(width < 560 ? 5 : 9).tickFormat((value) => formatMonth(value as Date));
+          plot.append("g").attr("transform", `translate(0,${innerHeight})`).call(xAxis)
+            .call((axis) => axis.selectAll("text").attr("fill", "currentColor"));
+          plot.append("line").attr("x2", innerWidth).attr("y1", ySteric(0)).attr("y2", ySteric(0)).attr("stroke", "#6b7280").attr("stroke-width", 1);
+          plot.append("text").attr("transform", "rotate(-90)").attr("x", -innerHeight / 2).attr("y", -48).attr("text-anchor", "middle").attr("fill", "currentColor").attr("font-size", 12).text("Steric-height anomaly (m)");
+          plot.append("text").attr("transform", "rotate(-90)").attr("x", -innerHeight / 2).attr("y", innerWidth + 54).attr("text-anchor", "middle").attr("fill", "currentColor").attr("font-size", 12).text("RONI (°C)");
+
+          const lines = plot.append("g").attr("clip-path", `url(#${clipId})`);
+          const renderLine = (item: Series, scale: d3.ScaleLinear<number, number>) => lines.append("path")
+            .datum(item.points)
+            .attr("fill", "none")
+            .attr("stroke", item.color)
+            .attr("stroke-width", 2.25)
+            .attr("stroke-dasharray", item.dasharray ?? null)
+            .attr("d", d3.line<Point>().x((point) => x(point.date)).y((point) => scale(point.value)));
+          series.forEach((item) => renderLine(item, ySteric));
+          renderLine(roni, yRoni);
+
+          const tooltip = plot.append("g").attr("visibility", "hidden");
+          tooltip.append("line").attr("class", "hover-line").attr("y2", innerHeight).attr("stroke", "#6b7280").attr("stroke-dasharray", "3 3");
+          const brush = d3.brushX<null>().extent([[0, 0], [innerWidth, innerHeight]]).on("end", (event) => {
+            if (!event.sourceEvent || !event.selection) return;
+            const [start, end] = event.selection as [number, number];
+            if (end - start < 5) return;
+            domain = [x.invert(start), x.invert(end)];
+            draw();
+          });
+          const overlay = plot.append("g").call(brush);
+          overlay.on("dblclick", (event) => {
+            event.preventDefault();
+            domain = fullDomain;
+            draw();
+          });
+
+          overlay.on("pointermove", (event) => {
+            const [pointerX, pointerY] = d3.pointer(event, plot.node());
+            const date = x.invert(Math.max(0, Math.min(innerWidth, pointerX)));
+            const values = [...series, roni].map((item) => ({ item, point: nearestPoint(item.points, date) }));
+            const selectedDate = values[0].point.date;
+            tooltip.attr("visibility", "visible").attr("transform", `translate(${x(selectedDate)},0)`);
+            const heading = document.createElement("div");
+            heading.textContent = formatMonth(selectedDate);
+            const rows = values.map(({ item, point }, index) => {
+              const row = document.createElement("div");
+              const dot = document.createElement("span");
+              dot.className = "steric-height-tooltip-dot";
+              dot.style.backgroundColor = item.color;
+              row.append(dot, document.createTextNode(`${item.name}: ${point.value.toFixed(2)} ${index === 3 ? "°C" : "m"}`));
+              return row;
+            });
+            valuesDisplay.replaceChildren(heading, ...rows);
+            valuesDisplay.hidden = false;
+            const left = Math.max(0, Math.min(width - valuesDisplay.offsetWidth, margin.left + pointerX + 14));
+            const top = Math.max(0, Math.min(height - valuesDisplay.offsetHeight, margin.top + pointerY + 14));
+            valuesDisplay.style.left = `${left}px`;
+            valuesDisplay.style.top = `${top}px`;
+          }).on("pointerleave", () => { tooltip.attr("visibility", "hidden"); valuesDisplay.hidden = true; });
+
+          chart.setAttribute("aria-busy", "false");
+        }
+
+        const observer = new ResizeObserver(() => draw());
+        observer.observe(chart);
+        window.addEventListener("pagehide", () => observer.disconnect(), { once: true });
+        resetButton.addEventListener("click", () => { domain = fullDomain; draw(); });
+        draw();
+      })
+      .catch((error: Error) => {
+        chart.setAttribute("aria-busy", "false");
+        errorMessage.textContent = error.message;
+        errorMessage.hidden = false;
+      });
+  }
+</script>
+
+<style>
+  .steric-height-chart { background: #fff; color: #333; }
+  .steric-height-chart :global(svg) { display: block; max-width: 100%; color: #333; }
+  .steric-height-chart :global(figcaption), .steric-height-chart :global(button) { color: #333; }
+  .steric-height-tooltip { position: absolute; z-index: 2; pointer-events: none; background: #161616; color: #fff; border-radius: 6px; padding: 0.6rem 0.75rem; font-size: 0.875rem; line-height: 1.5; box-shadow: 0 2px 8px #0004; }
+  .steric-height-tooltip[hidden] { display: none; }
+  .steric-height-tooltip :global(.steric-height-tooltip-dot) { display: inline-block; width: 0.65rem; height: 0.65rem; margin-right: 0.45rem; border-radius: 50%; }
+  .steric-height-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem 1.5rem; color: #333; font-size: 0.875rem; }
+  .steric-height-legend span { display: inline-flex; align-items: center; gap: 0.4rem; }
+  .steric-height-legend i { width: 1.5rem; height: 2px; background: var(--series-color); }
+  .steric-height-chart :global(.tick text) { font-size: 11px; }
+</style>
