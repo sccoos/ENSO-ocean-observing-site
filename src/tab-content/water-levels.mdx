@@ -4,7 +4,14 @@ import StericHeightChart from "../components/StericHeightChart.astro";
   <p class="text-muted-foreground"><strong>Conditions summary:</strong> Water temperatures increase during an El Niño and steric height is our measure of that increase in terms of water level. Steric height is a measure of the contribution of temperature and salinity to the height of a column of water. The plot below shows steric height relative to 500m water depth and averaged over the inshore 50km since Jan 2007.</p>
 </article>
 
-<StericHeightChart />
+<div class="grid gap-6 xl:grid-cols-[minmax(0,1fr)_502px] xl:items-start">
+  <div class="min-w-0">
+    <StericHeightChart />
+  </div>
+  <div class="my-6 flex overflow-hidden rounded-xl border border-layer-line bg-layer shadow-sm xl:h-[502px] xl:w-[502px]">
+    <img class="h-full w-full object-contain" src="/images/cugn-glider-lines-map.png" alt="Map of CUGN glider lines" />
+  </div>
+</div>
 
 <article class="rounded-xl border border-layer-line bg-layer p-5">
   <p class="text-muted-foreground"><strong>About the data:</strong> The California Underwater Glider Network uses autonomous Spray gliders, operated by Scripps Institution of Oceanography, to survey fixed lines running hundreds of kilometers offshore. The gliders dive repeatedly from the surface to depth, measuring temperature, salinity and other properties. Several lines have been sampled almost continuously since the mid-2000s (Rudnick et al. 2017).</p>
