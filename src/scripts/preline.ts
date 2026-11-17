@@ -1,5 +1,11 @@
 import { HSStaticMethods, HSTabs } from "preline/non-auto";
 
+declare global {
+  interface Window {
+    gtag?: (...args: unknown[]) => void;
+  }
+}
+
 HSStaticMethods.autoInit(["accordion", "collapse", "tabs"]);
 
 const mobileNavbar = window.matchMedia("(max-width: 767px)");
@@ -36,6 +42,12 @@ function openTabRoute(route: string) {
 
   updateCurrentPage(route);
   window.dispatchEvent(new CustomEvent("tabroutechange", { detail: { route } }));
+  window.gtag?.("event", "tab_view", {
+    tab_route: route,
+    tab_name: document
+      .querySelector<HTMLElement>(`[data-tab-route="${route}"]`)
+      ?.textContent?.trim()
+  });
 }
 
 function syncTabRouteFromHash() {
