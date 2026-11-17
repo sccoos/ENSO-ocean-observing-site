@@ -20,7 +20,7 @@ export const pageHelp = {
   "offshore-conditions/ship-based-sampling": `
     <p>The cross-section shows temperature anomalies along Line 93.3 by depth and distance offshore, compared with the long-term CalCOFI average. Other lines and past cruises can be selected using the embedded controls.</p>
   `,
-  "water-levels": `
+  "water-levels/derived": `
     <p><strong>Read the plot.</strong> The colored lines show steric-height anomalies in meters along CUGN glider lines 90, 80, and 66; the black line shows the Relative Oceanic Niño Index (RONI) in °C. The map shows the glider lines.</p>
     <p><strong>Explore the time series.</strong> Hover over the plot to see values. Drag across a time period to zoom in; double-click the plot or select Reset zoom to return to the full record.</p>
   `,

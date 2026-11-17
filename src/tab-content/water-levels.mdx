@@ -1,4 +1,24 @@
 import StericHeightChart from "../components/StericHeightChart.astro";
+import EmbedFrame from "../components/EmbedFrame.astro";
+
+<div class="border-b border-line-2">
+  <nav class="flex gap-x-1 overflow-x-auto overflow-y-hidden" aria-label="Water level observations" role="tablist" aria-orientation="horizontal">
+    <button type="button" id="water-levels-observed-tab" class="hs-tab-active:bg-layer hs-tab-active:border-b-transparent hs-tab-active:text-primary-active -mb-px inline-flex items-center gap-x-2 rounded-t-lg border border-line-2 bg-muted px-4 py-3 text-center text-sm font-medium text-muted-foreground-1 hover:text-foreground focus:outline-hidden focus:text-foreground active" data-tab-route="water-levels/observed" data-hs-tab="#water-levels-observed-panel" aria-controls="water-levels-observed-panel" aria-selected="true" role="tab">Observed Sea Level</button>
+    <button type="button" id="water-levels-derived-tab" class="hs-tab-active:bg-layer hs-tab-active:border-b-transparent hs-tab-active:text-primary-active -mb-px inline-flex items-center gap-x-2 rounded-t-lg border border-line-2 bg-muted px-4 py-3 text-center text-sm font-medium text-muted-foreground-1 hover:text-foreground focus:outline-hidden focus:text-foreground" data-tab-route="water-levels/derived" data-hs-tab="#water-levels-derived-panel" aria-controls="water-levels-derived-panel" aria-selected="false" role="tab">Derived Sea Level</button>
+  </nav>
+</div>
+
+<div id="water-levels-observed-panel" class="mt-3" role="tabpanel" aria-labelledby="water-levels-observed-tab">
+  <EmbedFrame src="https://sccoos.github.io/NOAA-CA-tides-timeseries/" title="Observed sea level at California NOAA tide gauges" height="650px" />
+  <article class="rounded-xl border border-layer-line bg-layer p-5">
+    <p class="text-muted-foreground"><strong>About the data:</strong> This plot shows water levels at NOAA tide gauges in San Diego (9410170), Monterey (9413450), and Point Reyes (9415020), California. Data are verified hourly water-level observations from NOAA’s Center for Operational Oceanographic Products and Services (CO-OPS), displayed in feet relative to each station’s mean sea level datum. Each point represents a trailing seven-day mean of 168 hourly observations; days with missing hourly values and the seven-day windows containing them are excluded. NOAA-inferred values are included. Because the plot uses verified observations, the most recent data may lag behind current conditions, and the available end date may differ among stations.</p>
+  </article>
+  <article class="rounded-xl border border-layer-line bg-layer p-5">
+    <p class="text-muted-foreground"><strong>Data citation:</strong> Center for Operational Oceanographic Products and Services (CO-OPS). 2018. <em>CO-OPS Water Level Data from the Coastal Tide Gauge and Great Lake Water Level Network of the United States and US Territories.</em> NOAA National Centers for Environmental Information. <a class="text-primary hover:underline" href="https://doi.org/10.25921/dt9g-2p60">https://doi.org/10.25921/dt9g-2p60</a>. Accessed November 17, 2026.</p>
+  </article>
+</div>
+
+<div id="water-levels-derived-panel" class="mt-3 hidden" role="tabpanel" aria-labelledby="water-levels-derived-tab">
 
 <article class="rounded-xl border border-layer-line bg-layer p-5">
   <p class="text-muted-foreground"><strong>Conditions summary:</strong> Water temperatures increase during an El Niño and steric height is our measure of that increase in terms of water level. Steric height is a measure of the contribution of temperature and salinity to the height of a column of water. The plot below shows steric height relative to 500m water depth and averaged over the inshore 50km since Jan 2007.</p>
@@ -22,3 +42,4 @@ import StericHeightChart from "../components/StericHeightChart.astro";
     Data citation: Rudnick, D. L., K. D. Zaba, R. E. Todd, and R. E. Davis, 2017: A climatology of the California Current System from a network of underwater gliders. <em>Progress in Oceanography</em>, 154, 64-106; <a class="text-primary hover:underline" href="http://doi.org/doi:10.1016/j.pocean.2017.03.002">doi: 10.1016/j.pocean.2017.03.002</a>
   </p>
 </article>
+</div>
